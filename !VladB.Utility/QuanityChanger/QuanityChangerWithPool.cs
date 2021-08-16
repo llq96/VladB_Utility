@@ -5,8 +5,8 @@ using UnityEngine;
 namespace VladB.Utility {
     public class QuanityChangerWithPool : QuanityChanger {
         [Header("Reposition Settings")]
-        public Vector3 randomRepositionMin;
-        public Vector3 randomRepositionMax;
+        [SerializeField] Vector3 randomRepositionMin;
+        [SerializeField] Vector3 randomRepositionMax;
 
         Pool pool;
 
@@ -26,25 +26,19 @@ namespace VladB.Utility {
                 if (go != null) {
                     InitNewObject(_numbered , go);
                 }
-
-                
             }
-
-
         }
 
         protected virtual GameObject Spawn() {
             IPoolObject _poolObject = pool.GetFreeObject();
-            //Debug.Log((_poolObject as Component).transform.position);
+
             if (_poolObject is INumbered _numbered) {
                 _numbered.lastQuanityChanger = this;
             }
             if(_poolObject is Component) {
                 return (_poolObject as Component).gameObject;
-            } else {
-                return null;
             }
-            
+            return null;
         }
 
         protected virtual void Reposition(GameObject go , Vector3 _basePos) {

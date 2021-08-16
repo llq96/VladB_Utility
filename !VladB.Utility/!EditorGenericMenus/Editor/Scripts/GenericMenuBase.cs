@@ -7,19 +7,20 @@ namespace VladB.Utility {
     public class GenericMenuBase : ScriptableObject{
         protected static GenericMenu menu;
 
-        public void TryOpen() {
+        public void TryOpen() { //Может вызываться через UnityEvents, не удалять.
             GenerateGenericMenu();
         }
 
-        public virtual bool GenerateGenericMenu() {
+        protected virtual bool GenerateGenericMenu() {
             if (!IsCanGenerateMenu()) {
                 Debug.LogError("Can Not Generate Menu");
                 return false;
             }
 
             //Созадние меню
-            menu = new GenericMenu();
-            menu.allowDuplicateNames = false;
+            menu = new GenericMenu {
+                allowDuplicateNames = false
+            };
 
             return true;
         }

@@ -1,54 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace VladB.Utility {
-	public class ResourcesLoader : MonoBehaviour {
-
-		public static Sprite LoadSprite(string path) {
-
+	public class ResourcesLoader{
+		public static T Load<T>(string path) where T : Object {
 #if UNITY_EDITOR
-
-			Sprite spr = Resources.Load<Sprite>(path);
-			if (spr == null) {
-				Debug.LogError("Dont Found :   " + path);
+			T loadedObject = Resources.Load<T>(path);
+			if(loadedObject == null) {
+				Debug.LogError($"Don not found resource: {path}");
 			}
-			return spr;
-
+			return loadedObject;
 #else
-		return Resources.Load<Sprite> (path);
+		return Resources.Load<T> (path);
 #endif
 		}
 
-
-		public static Material LoadMaterial(string path) {
-#if UNITY_EDITOR
-
-			Material mat = Resources.Load<Material>(path);
-			if (mat == null) {
-				Debug.LogError("Dont Found :   " + path);
-			}
-			return mat;
-
-#else
-		return Resources.Load<Material> (path);
-#endif
-		}
-
-
-		public static GameObject LoadGameObject(string path) {
-
-#if UNITY_EDITOR
-
-			GameObject go = Resources.Load<GameObject>(path);
-			if (go == null) {
-				Debug.LogError("Dont Found :   " + path);
-			}
-			return go;
-
-#else
-		return Resources.Load<GameObject> (path);
-#endif
-		}
+		public static Sprite LoadSprite(string path) => Load<Sprite>(path);
+		public static Material LoadMaterial(string path) => Load<Material>(path);
+		public static GameObject LoadGameObject(string path) => Load<GameObject>(path);
+		//TODO Что ещё добавить?
 	}
 }

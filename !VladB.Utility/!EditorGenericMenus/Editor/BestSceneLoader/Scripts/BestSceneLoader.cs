@@ -2,34 +2,33 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-
-
 namespace VladB.Utility {
     [CreateAssetMenu(fileName = "BestSceneLoader", menuName = "VladB/GenericMenu/BestSceneLoader", order = 2)]
     public class BestSceneLoader : GenericMenuBase {
         bool isAdditionalLoad;
 
-        public void OpenSceneLoader_Singe() {
+
+        public void OpenSceneLoader_Singe() { //Может вызываться через UnityEvents, не удалять.
             isAdditionalLoad = false;
             GenerateGenericMenu();
         }
 
-
-        public void OpenSceneLoader_Additional() {
+        public void OpenSceneLoader_Additional() { //Может вызываться через UnityEvents, не удалять.
             isAdditionalLoad = true;
             GenerateGenericMenu();
         }
 
-        public override bool GenerateGenericMenu() {
+        protected override bool GenerateGenericMenu() {
             if (!base.GenerateGenericMenu()) {
                 return false;
             }
 
-            //Заполнение меню
+            //Заполнение меню сценами идущими в билд
             AddScenes_FromBuildSettings();
 
             menu.AddSeparator("");
 
+            //Заполнение меню остальными сценами
             AddScenes_Other();
 
             //Показ меню в месте курсора мыши
@@ -56,7 +55,6 @@ namespace VladB.Utility {
             AddMenuItems(paths);
         }
 
-
         void AddMenuItems(string[] paths) {
             string path;
             for (int i = 0; i < paths.Length; i++) {
@@ -64,10 +62,7 @@ namespace VladB.Utility {
                 AddMenuItem($"{path.Substring(path.LastIndexOf("/") + 1)}", path);
             }
         }
-
         #endregion
-
-
 
         protected override void OnClicked(object _scenePath) {
             string path = (string)_scenePath;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -11,6 +9,7 @@ namespace VladB.Utility {
         [Header("Target FPS")]
         public int targetFPS = 30;
 
+
         private void Awake() {
 #if UNITY_EDITOR
             SetTargetFPS(targetFPS);
@@ -18,7 +17,7 @@ namespace VladB.Utility {
         }
 
         void SetTargetFPS(int _fps) {
-            if (_fps > 0) {
+            if(_fps > 0) {
                 Application.targetFrameRate = _fps;
             }
         }
@@ -29,22 +28,12 @@ namespace VladB.Utility {
 #if UNITY_EDITOR
     [CustomEditor(typeof(SetTargetFPSOnAwake))]
     public class SetTargetFPSOnAwakeEditor : Editor {
-
-        //private SetTargetFPSOnAwake script { get { return target as SetTargetFPSOnAwake; } }
+        //private SetTargetFPSOnAwake script => target as SetTargetFPSOnAwake;
 
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
-            serializedObject.Update();
-
-            if (serializedObject == null) {
-                return;
-            }
-
             EditorGUILayout.HelpBox("Works only in the editor", MessageType.None);
-
-            serializedObject.ApplyModifiedProperties();
         }
     }
 #endif
-
 }

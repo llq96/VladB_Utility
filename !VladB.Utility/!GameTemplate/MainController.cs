@@ -17,37 +17,38 @@ namespace VladB.GameTemplate {
         public virtual void Init() {
             gameState = GetComponent<GameState>();
             gameState.OnGameStateChanged -= GameStateChanged;
-            //...
+            //TODO
             gameState.OnGameStateChanged += GameStateChanged;
 
             IController temp;
-            foreach (GameObject go in controllersObjects) {
-                if (go) {
+            foreach(GameObject go in controllersObjects) {
+                if(go) {
                     temp = go.GetComponent<IController>();
-                    if (temp != null) {
+                    if(temp != null) {
                         controllers.Add(temp);
                     } else {
-                        if (isDebugLog) {
-                            Debug.LogError($"{go.name} doesn`t have IController !");
+                        if(isDebugLog) {
+                            Debug.LogError($"{go.name} does not have IController !");
                         }
                     }
                 } else {
-                    if (isDebugLog) {
+                    if(isDebugLog) {
                         Debug.LogError("GameObjet is null! ");
                     }
                 }
             }
 
-            foreach (IController controller in controllers) {
-                if (controller != null) {
+            foreach(IController controller in controllers) {
+                if(controller != null) {
                     controller.Init(this);
                     gameState.OnGameStateChanged -= controller.GameStateChanged;
+                    //TODO
                     gameState.OnGameStateChanged += controller.GameStateChanged;
-                    if (isDebugLog) {
+                    if(isDebugLog) {
                         Debug.Log($"Init {controller}");
                     }
                 } else {
-                    if (isDebugLog) {
+                    if(isDebugLog) {
                         Debug.LogError("controller is null !");
                     }
                 }
@@ -57,57 +58,38 @@ namespace VladB.GameTemplate {
         public void LevelLoaded(Level _level) {
             _level.Init(this);
 
-            foreach (IController controller in controllers) {
-                if (controller != null) {
+            foreach(IController controller in controllers) {
+                if(controller != null) {
                     controller.LevelLoaded(_level);
                 }
             }
         }
 
         #region GameState
-
-        public virtual void GameStateChanged(GameStateEnum _state) {
-            //foreach (IController controller in controllers) {
-            //    if (controller != null) {
-            //        controller.GameStateChanged(_state);
-            //    }
-            //}
-        }
+        public virtual void GameStateChanged(GameStateEnum _state) { }
 
         public virtual void SetGameState(GameStateEnum _state) {
             gameState.SetGameState(_state);
         }
 
-        public virtual GameStateEnum GetGameState() {
+        public virtual GameStateEnum GetGameState() { //IMainController Realization
             return gameState.state;
         }
-
-
         #endregion
-
 
         #region Awake/Start/Update Functions
 
-        void Awake() {
-            AwakeFunc();
-        }
+        void Awake() => AwakeFunc();
         protected virtual void AwakeFunc() { }
 
-        void Start() {
-            StartFunc();
-        }
+        void Start() => StartFunc();
         protected virtual void StartFunc() { }
 
-        void Update() {
-            UpdateFunc();
-        }
+        void Update() => UpdateFunc();
         protected virtual void UpdateFunc() { }
 
-        void LateUpdate() {
-            LateUpdateFunc();
-        }
+        void LateUpdate() => LateUpdateFunc();
         protected virtual void LateUpdateFunc() { }
-
         #endregion
     }
 

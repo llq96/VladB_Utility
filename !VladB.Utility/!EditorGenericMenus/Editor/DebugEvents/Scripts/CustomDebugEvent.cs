@@ -6,17 +6,26 @@ using UnityEditor;
 
 namespace VladB.Utility {
     [System.Serializable]
-    public class CustomEvent<T>{
+    public abstract class CustomEvent {
         [Header("Visual Name")]
         public string visualName;
 
+        public abstract void Invoke(object extraInfo = null);
+        public abstract void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex);
+
+        protected abstract string GetVisualName();
+        protected abstract void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex, Object _target, string _visualName);
+    }
+
+    [System.Serializable]
+    public abstract class CustomEvent<T> : CustomEvent {
         public UnityEvent<T> unityEvent;
 
-        public virtual void Invoke(object extraInfo = null) {
+        public override void Invoke(object extraInfo = null) {
             unityEvent.Invoke((T)extraInfo);
         }
 
-        public virtual void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex) {
+        public override void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex) {
             int count = unityEvent.GetPersistentEventCount();
             if (count == 0) {
                 Debug.LogError("0 Events");
@@ -28,21 +37,20 @@ namespace VladB.Utility {
             }
         }
 
-        string GetVisualName() {
+        protected override string GetVisualName() {
             return string.IsNullOrEmpty(visualName) ? unityEvent.GetPersistentMethodName(0) : visualName;
-        }
-
-        protected virtual void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex, Object _target, string _visualName) {
-            _customDebugEvents.AddMenuItem(_visualName, new SelectedItemInfo(CustomEventType.Basic, _eventIndex, null));
         }
     }
 
 
 
 
-
-        [System.Serializable]
-    public class CustomEvent_WithoutParams : CustomEvent<object> {}
+    [System.Serializable]
+    public class CustomEvent_WithoutParams : CustomEvent<object> {
+        protected override void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex, Object _target, string _visualName) {
+           _customDebugEvents.AddMenuItem(_visualName, new SelectedItemInfo(CustomEventType.Basic, _eventIndex, null));
+        }
+    }
 
     [System.Serializable]
     public class CustomEvent_int : CustomEvent<int> {

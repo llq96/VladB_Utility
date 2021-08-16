@@ -4,13 +4,14 @@ using UnityEngine;
 
 namespace VladB.Utility {
     public abstract class QuanityChanger : MonoBehaviour {
+        static string[] symbols = { "+", "x", "-", "/" };
+
         [Header("Number Settings")]
         [SerializeField] QuanityChangerType type;
         [SerializeField] int number = 2;
 
-        public virtual void Init() {
 
-        }
+        public virtual void Init() {}
 
         public virtual int GetCalculatedValue(int _value = 1, int _minValue = 1, int _maxValue = int.MaxValue) {
             int result = 0;
@@ -41,12 +42,9 @@ namespace VladB.Utility {
 
         public abstract void ChangeQuality(INumbered _numbered);
 
-        public virtual string GetText() {
-            return $"{symbols[(int)type]}{number}";
-        }
-
-        static string[] symbols = { "+", "x", "-", "/" };
+        public virtual string GetText() => $"{symbols[(int)type]}{number}";
     }
+
 
     public enum QuanityChangerType {
         Plus,
@@ -58,6 +56,5 @@ namespace VladB.Utility {
     public interface INumbered {
         public int count { get; set; }
         public QuanityChanger lastQuanityChanger { get; set; }
-
     }
 }

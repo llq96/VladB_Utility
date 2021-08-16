@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace VladB.Utility {
     public class AudioManager : MonoBehaviour {
-        public static AudioManager __instance;
+        static AudioManager __instance;
         public static AudioManager instance {
             get {
-                if (__instance == null) {
-
+                if(__instance == null) {
                     GameObject go = new GameObject("AudioManager");
                     //go.AddComponent<AudioListener>(); //TODO Делать проверку если ли в открытых сценах Listener ?
                     __instance = go.AddComponent<AudioManager>();
@@ -17,9 +15,7 @@ namespace VladB.Utility {
                 return __instance;
 
             }
-            set {
-                __instance = value;
-            }
+            set => __instance = value;
         }
 
         static Dictionary<string, AudioSource> dict = new Dictionary<string, AudioSource>();

@@ -46,36 +46,3 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 1
-  - keys: 4
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11400000, guid: 35a620976c8a23d4587cc35cd9259699, type: 2}
-          m_TargetAssemblyTypeName: VladB.Utility.ItemSpawner`1[[VladB.GameTemplate.Level,
-            Assembly-CSharp
-          m_MethodName: OpenSpawner
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 1
-  - keys: 0
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11400000, guid: 37707d50877bcc644ab82df85ec29b24, type: 2}
-          m_TargetAssemblyTypeName: VladB.Utility.GenericMenuBase, Assembly-CSharp-Editor
-          m_MethodName: TryOpen
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 1

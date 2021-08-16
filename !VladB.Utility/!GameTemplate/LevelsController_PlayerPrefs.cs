@@ -12,31 +12,19 @@ namespace VladB.GameTemplate {
         [SerializeField] LC_PP_Settings playerPrefs;
 
         public virtual int currentLevel {
-            get {
-                return PlayerPrefs.GetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_currentLevel, 1);
-            }
-            set {
-                //PlayerPrefs.SetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_currentLevel, Mathf.Clamp(value, 1, countLevels));
-                PlayerPrefs.SetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_currentLevel, value);
-            }
+            get => PlayerPrefs.GetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_currentLevel, 1);
+            set => PlayerPrefs.SetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_currentLevel, value);
         }
 
         public virtual int loadedLevel {
-            get {
-                return PlayerPrefs.GetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_loadedLevel, 0);
-            }
-            set {
-                PlayerPrefs.SetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_loadedLevel, value);
-            }
+            get => PlayerPrefs.GetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_loadedLevel, 0);
+            set => PlayerPrefs.SetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_loadedLevel, value);
         }
 
         public virtual int lastPassedLevel {
-            get {
-                return PlayerPrefs.GetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_lastPassedLevel, 0);
-                //return PlayerPrefs.GetInt("BG_ListOfLevels_lastPassedLevel", mc.levelsController.countLevels - 1);
-            }
+            get => PlayerPrefs.GetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_lastPassedLevel, 0);
             set {
-                if (value > lastPassedLevel) {
+                if(value > lastPassedLevel) {
                     PlayerPrefs.SetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_lastPassedLevel, value);
                 }
             }
@@ -53,27 +41,21 @@ namespace VladB.GameTemplate {
 
 
 
-
 #if UNITY_EDITOR
     [CustomEditor(typeof(LevelsController_PlayerPrefs))]
     public class LevelsController_PlayerPrefsEditor : Editor {
-
-        private LevelsController_PlayerPrefs script { get { return target as LevelsController_PlayerPrefs; } }
+        LevelsController_PlayerPrefs script => target as LevelsController_PlayerPrefs;
 
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
 
             EditorGUILayout.Space(20);
-            //EditorGUILayout.HelpBox($"Current Level = {script.currentLevel}" , MessageType.None);
-            //EditorGUILayout.HelpBox($"Loaded Level = {script.loadedLevel}", MessageType.None);
-            //EditorGUILayout.HelpBox($"Last Passed Level = {script.lastPassedLevel}", MessageType.None);
-
-
 
             string text = "";
             text += $"Current Level = {script.currentLevel}" + "\n";
             text += $"Loaded Level = {script.loadedLevel}" + "\n";
             text += $"Last Passed Level = {script.lastPassedLevel}";
+
             EditorGUILayout.HelpBox(text, MessageType.None);
         }
     }

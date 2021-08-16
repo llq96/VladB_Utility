@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VladB.Utility {
     [RequireComponent(typeof(Timer))]
-    public class Particle : MonoBehaviour, IParticle, IPoolObject {
+    public class Particle : MonoBehaviour, IParticle, IPoolObject { //TODO Верунть закоментированное
 
         [Header("Particles")]
         public ParticleSystem[] particles;

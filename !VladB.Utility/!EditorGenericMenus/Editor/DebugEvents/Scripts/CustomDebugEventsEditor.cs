@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -14,9 +13,9 @@ namespace VladB.Utility {
             "events_string"
         };
 
-        CustomDebugEvents script { get { return target as CustomDebugEvents; } }
+        CustomDebugEvents script => target as CustomDebugEvents;
 
-        List<bool> isShow { get { return script.isShow; } set { isShow = value; } }
+        List<bool> isShow { get => script.isShow; set => isShow = value; }
 
         public override void OnInspectorGUI() {
             if (serializedObject == null) {
@@ -27,8 +26,6 @@ namespace VladB.Utility {
             if (!script.isCustomEditorGUI) {
                 if (GUILayout.Button("EnableCustomEditor")) {
                     script.isCustomEditorGUI = true;
-                    //base.OnInspectorGUI();
-                    //return;
                 } else {
                     base.OnInspectorGUI();
                     return;

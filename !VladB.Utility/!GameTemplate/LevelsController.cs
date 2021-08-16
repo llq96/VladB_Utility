@@ -13,6 +13,10 @@ namespace VladB.GameTemplate {
         [SerializeField] string levelsPath;
         [SerializeField] public int countLevels;
 
+        [Header("Debug")]
+        [Tooltip("If there is a level on the scene, then it will be launched.")]
+        [SerializeField] bool isPlayLevelOnSceneIfExist = true;
+
         LevelsController_PlayerPrefs __playerPrefs;
         LevelsController_PlayerPrefs playerPrefs {
             get {
@@ -23,10 +27,6 @@ namespace VladB.GameTemplate {
 
             }
         }
-
-        [Header("Debug")]
-        [Tooltip("If there is a level on the scene, then it will be launched.")]
-        [SerializeField] bool isPlayLevelOnSceneIfExist = true;
 
         GameObject levelPrefab;
         Level level;
@@ -54,7 +54,6 @@ namespace VladB.GameTemplate {
         #endregion
 
         #endregion
-
 
         #region IController Realization
         public virtual void Init(IMainController _mainController) {
@@ -177,6 +176,4 @@ namespace VladB.GameTemplate {
         }
         #endregion
     }
-
-
 }

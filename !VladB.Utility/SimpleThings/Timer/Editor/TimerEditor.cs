@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
@@ -7,19 +5,14 @@ using UnityEditor;
 namespace VladB.Utility {
     [CustomEditor(typeof(Timer))]
     public class TimerEditor : Editor {
-
-        Timer script { get { return target as Timer; } }
-
+        Timer script => target as Timer;
         GUIStyle style;
 
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
-
-
             if (Application.isPlaying) {
                 ShowTimer();
             }
-
         }
 
         void ShowTimer() {
@@ -45,11 +38,11 @@ namespace VladB.Utility {
 
         void CheckStyle() {
             if(style == null){
-                style = new GUIStyle();
-                style.alignment = TextAnchor.MiddleLeft;
-                style.fontSize = 40;
+                style = new GUIStyle {
+                    alignment = TextAnchor.MiddleLeft,
+                    fontSize = 40
+                };
             }
         }
-
     }
 }

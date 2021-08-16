@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace VladB.Utility {
     public class EventSystemChecker : MonoBehaviour {
-        public GameObject eventSystemObject;
+        [SerializeField] GameObject eventSystemObject;
 
         private void Awake() {
             if (EventSystem.current == null) {

@@ -15,26 +15,19 @@ namespace VladB.Utility {
 	}
 #endif
 
-		[ContextMenu("SetColor_Black")]
-		public void SetColor_Black() {
-			color = Color.black;
-		}
+        [ContextMenu("SetColor_Black")]
+        public void SetColor_Black() => color = Color.black;
 
-		[ContextMenu("SetColor_Red")]
-		public void SetColor_Red() {
-			color = Color.red;
-		}
-
-
-	}
+        [ContextMenu("SetColor_Red")]
+        public void SetColor_Red() => color = Color.red;
+    }
 
 
 #if UNITY_EDITOR
 	[CustomEditor(typeof(Comment))]
 	public class CommentEditor : Editor {
-
-		private Comment script { get { return target as Comment; } }
-		private GUIStyle style = new GUIStyle();
+        Comment script => target as Comment;
+        GUIStyle style = new GUIStyle();
 
 		public override void OnInspectorGUI() {
 			serializedObject.Update();

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace VladB.Utility {
-    public class Timer : MonoBehaviour {
+    public class Timer : MonoBehaviour { //TODO сделать TimerUI, удалить лишние комменты
         [Header("Settings")]
         public Timer_TimeType timeType;
         public bool isActivateOnStart = false;
@@ -51,28 +51,37 @@ namespace VladB.Utility {
             }
         }
 
+        //VisualStudio Рекомендует
+        //float GetDeltaTime() => timeType switch {
+        //    Timer_TimeType.Scaled => Time.deltaTime,
+        //    Timer_TimeType.UnScaled => Time.unscaledDeltaTime,
+        //    _ => 0,
+        //};
+
+        float GetDeltaTime() {
+            switch(timeType) {
+                case Timer_TimeType.Scaled: return Time.deltaTime;
+                case Timer_TimeType.UnScaled: return Time.unscaledDeltaTime;
+                default: return 0;
+            }
+        }
+
         void Update() {
             if (!isTimerActive) {
                 return;
             }
 
-            if (timeType == Timer_TimeType.Scaled) {
-                curValue -= Time.deltaTime;
-            } else if (timeType == Timer_TimeType.UnScaled) {
-                curValue -= Time.unscaledDeltaTime;
-            }
-
+            curValue -= GetDeltaTime();
             curValue = Mathf.Clamp(curValue, 0f, maxTimeValue);
 
             if (curValue <= 0f) {
                 OnEndTime?.Invoke();
-                if (isReactivateTimer) {
-                    TimerSetActive(true, true);
-                } else {
-                    TimerSetActive(false, false);
-                }
-                //onEndTime.Invoke();
-
+                TimerSetActive(isReactivateTimer, isReactivateTimer);
+                //if (isReactivateTimer) {
+                //    TimerSetActive(true, true);
+                //} else {
+                //    TimerSetActive(false, false);
+                //}
             }
 
 

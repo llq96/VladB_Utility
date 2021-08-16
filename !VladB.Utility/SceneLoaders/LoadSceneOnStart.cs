@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace VladB.Utility {
-    public class LoadSceneOnStart : MonoBehaviour {
-        public string levelName;
-        public bool isAdditive;
+    public class LoadSceneOnStart : MonoBehaviour {//TODO Добавить в проект пиздатый Loader
+        [SerializeField] string levelName;
+        [SerializeField] bool isAdditive;
 
         void Start() {
             if (!string.IsNullOrEmpty(levelName)) {

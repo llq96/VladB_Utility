@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a59b6410b2e7348aa80dae0aa413dc, type: 3}
+  m_Name: GenericMenusManager
+  m_EditorClassIdentifier: 
+  isActive: 1
+  menus:
+  - keys: 2
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 653108f37cb9f2246a81117a7f9c7878, type: 2}
+          m_TargetAssemblyTypeName: VladB.Utility.BestSceneLoader, Assembly-CSharp-Editor
+          m_MethodName: OpenSceneLoader_Singe
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - keys: 3
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 653108f37cb9f2246a81117a7f9c7878, type: 2}
+          m_TargetAssemblyTypeName: VladB.Utility.BestSceneLoader, Assembly-CSharp-Editor
+          m_MethodName: OpenSceneLoader_Additional
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - keys: 4
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 35a620976c8a23d4587cc35cd9259699, type: 2}
+          m_TargetAssemblyTypeName: VladB.Utility.ItemSpawner`1[[VladB.GameTemplate.Level,
+            Assembly-CSharp
+          m_MethodName: OpenSpawner
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - keys: 0
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 37707d50877bcc644ab82df85ec29b24, type: 2}
+          m_TargetAssemblyTypeName: VladB.Utility.GenericMenuBase, Assembly-CSharp-Editor
+          m_MethodName: TryOpen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1

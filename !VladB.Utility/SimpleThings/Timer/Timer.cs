@@ -1,110 +1,80 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace VladB.Utility {
-    public class Timer : MonoBehaviour { //TODO сделать TimerUI, удалить лишние комменты
+    public class Timer : MonoBehaviour {
         [Header("Settings")]
-        public Timer_TimeType timeType;
-        public bool isActivateOnStart = false;
+        public TimeType timeType;
+        public bool isActivateOnStart;
         public bool isReactivateTimer;
         public float maxTimeValue;
+        public ViewType viewType;
+
+        public virtual bool isTimerActive { get; private set; }
+        public virtual float currentTime { get; private set; }
+
+        public event Action OnEndTime; //public delegate void EndTime();
 
 
-        [Header("Info:")]
-        [HideInInspector] public bool isTimerActive;
-        [HideInInspector] public float curValue;
-
-        public delegate void EndTime();
-        public event EndTime OnEndTime;
-
-        //[Header("UI")]
-        //public float valueToShowTimerUI = 999f;
-        //public GameObject timerUI;
-        //public UILabel timerLabelUI;
-
-
-        public void TimerSetActive(bool _isActive, bool _isReset = false) {
+        #region Public Functions
+        public virtual void TimerSetActive(bool _isActive, bool _isReset = false) {
             isTimerActive = _isActive;
-            if (_isReset) {
-                TimerReset();
+            if(_isReset) {
+                currentTime = maxTimeValue;
             }
-            //if (!_isActive) {
-            //    SetActiveTimerUI(false);
-            //}
         }
 
-        //public void SetActiveTimerUI(bool _isActive) {
-        //    if (timerUI) {
-        //        timerUI.SetActive(_isActive);
-        //    }
-        //}
-
-        public void TimerReset() {
-            curValue = maxTimeValue;
+        public virtual string GetTimeString(ViewType _viewType) {
+            switch(_viewType) {
+                case ViewType.JustInt: return ((int)currentTime).ToString();
+                case ViewType.JustFloat: return currentTime.ToString();
+                default: return "";
+            }
         }
+        #endregion
 
-        void Start() {
-            if (isActivateOnStart) {
+        #region Start/Update Functions
+        void Start() => StartFunc();
+        protected virtual void StartFunc() {
+            if(isActivateOnStart) {
                 TimerSetActive(true, true);
             }
         }
 
-        //VisualStudio Рекомендует
-        //float GetDeltaTime() => timeType switch {
-        //    Timer_TimeType.Scaled => Time.deltaTime,
-        //    Timer_TimeType.UnScaled => Time.unscaledDeltaTime,
-        //    _ => 0,
-        //};
-
-        float GetDeltaTime() {
-            switch(timeType) {
-                case Timer_TimeType.Scaled: return Time.deltaTime;
-                case Timer_TimeType.UnScaled: return Time.unscaledDeltaTime;
-                default: return 0;
-            }
-        }
-
-        void Update() {
-            if (!isTimerActive) {
+        void Update() => UpdateFunc();
+        protected virtual void UpdateFunc() {
+            if(!isTimerActive) {
                 return;
             }
 
-            curValue -= GetDeltaTime();
-            curValue = Mathf.Clamp(curValue, 0f, maxTimeValue);
+            currentTime -= GetDeltaTime();
+            currentTime = Mathf.Clamp(currentTime, 0f, maxTimeValue);
 
-            if (curValue <= 0f) {
+            if(currentTime <= 0f) {
                 OnEndTime?.Invoke();
                 TimerSetActive(isReactivateTimer, isReactivateTimer);
-                //if (isReactivateTimer) {
-                //    TimerSetActive(true, true);
-                //} else {
-                //    TimerSetActive(false, false);
-                //}
             }
+        }
+        #endregion
 
-
-            //if (timerUI) {
-            //    if (curValue <= valueToShowTimerUI) {
-            //        if (!timerUI.activeSelf) {
-            //            timerUI.SetActive(true);
-            //        }
-
-
-            //        if (timerLabelUI) {
-            //            timerLabelUI.text = (int)curValue + "";
-            //        }
-            //    } else {
-            //        if (timerUI.activeSelf) {
-            //            timerUI.SetActive(false);
-            //        }
-            //    }
-            //}
+        protected virtual float GetDeltaTime() {
+            switch(timeType) {
+                case TimeType.Scaled:
+                    return Time.deltaTime;
+                case TimeType.UnScaled:
+                    return Time.unscaledDeltaTime;
+                default:
+                    return 0;
+            }
         }
 
-        public enum Timer_TimeType {
-            Scaled, UnScaled
+
+        public enum TimeType {
+            Scaled, UnScaled //TODO Add "InGame" Type ?
+        }
+
+        public enum ViewType {
+            JustInt , JustFloat //TODO Add Type 00:00
         }
     }
 }

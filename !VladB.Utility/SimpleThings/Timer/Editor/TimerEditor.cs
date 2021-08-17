@@ -15,12 +15,17 @@ namespace VladB.Utility {
             }
         }
 
+        
+
         void ShowTimer() {
+            if(script == null) {
+                return;
+            }
             CheckStyle();
 
             EditorGUILayout.Space(20);
 
-            float time = script.curValue;
+            float time = script.currentTime;
             int minutes = Mathf.FloorToInt(time / 60f);
             int seconds = Mathf.FloorToInt(time % 60f);
             int mili = Mathf.FloorToInt((time - (int)time) * 100f);

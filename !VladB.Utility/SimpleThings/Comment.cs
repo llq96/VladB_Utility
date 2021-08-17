@@ -42,7 +42,7 @@ namespace VladB.Utility {
 
 			//EditorGUILayout.Space();
 
-			string text = EditorGUILayout.TextArea(string.IsNullOrEmpty(script.text) ? "Comment Here..." : script.text, style);
+			string text = EditorGUILayout.TextArea(script.text.IsNullOrEmpty() ? "Comment Here..." : script.text, style);
 			if (text != script.text) {
 				Undo.RecordObject(script, "Edit Comments");
 				script.text = text;

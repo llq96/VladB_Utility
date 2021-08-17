@@ -17,6 +17,6 @@ namespace VladB.Utility {
 		public static Sprite LoadSprite(string path) => Load<Sprite>(path);
 		public static Material LoadMaterial(string path) => Load<Material>(path);
 		public static GameObject LoadGameObject(string path) => Load<GameObject>(path);
-		//TODO Что ещё добавить?
+		//Что ещё добавить?
 	}
 }

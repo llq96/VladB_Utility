@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace VladB.Utility {
     public class AudioManager : MonoBehaviour {
+        //TODO instance используется только для того, чтобы иметь папку на сцене в которую кидаются объекты,
+        //возможно стоит подумать как избавиться от инстанса, но сохранить функционал
         static AudioManager __instance;
         public static AudioManager instance {
             get {
@@ -23,10 +25,6 @@ namespace VladB.Utility {
         static AudioSource tempSource;
         static GameObject tempObj;
         static GameObject tempPrefab;
-
-        void Awake() {
-            instance = this;
-        }
 
         public static AudioSource GetAudioSource(string _soundPath) {
             if (dict.TryGetValue(_soundPath, out tempSource)) {

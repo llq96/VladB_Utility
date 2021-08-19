@@ -51,6 +51,17 @@ namespace VladB.Utility {
         }
 
         #endregion
+
+        #region GetString
+        //TODO Use StringBuilder
+        public static string GetString<T>(this IList<T> list, string separator = " ") {
+            string result = string.Empty;
+            for(int i = 0; i < list.Count; i++) {
+                result += list[i] + ((i != list.Count - 1) ? separator : "");
+            }
+            return result;
+        }
+        #endregion
     }
 
 }

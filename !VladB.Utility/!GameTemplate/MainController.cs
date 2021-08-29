@@ -53,12 +53,12 @@ namespace VladB.GameTemplate {
             }
         }
 
-        public void LevelLoaded(Level _level) {
-            _level.Init(this);
+        public void LevelLoaded(Level level) {
+            level.Init(this);
 
             foreach(IController controller in controllers) {
                 if(controller != null) {
-                    controller.LevelLoaded(_level);
+                    controller.LevelLoaded(level);
                 }
             }
         }
@@ -95,15 +95,15 @@ namespace VladB.GameTemplate {
         public void Init();
 
         #region GameState
-        public void GameStateChanged(GameStateEnum _state);
-        public void SetGameState(GameStateEnum _state);
+        public void GameStateChanged(GameStateEnum state);
+        public void SetGameState(GameStateEnum state);
         public GameStateEnum GetGameState();
         #endregion
     }
 
     public interface IController {
-        public void Init(IMainController _mainController);
-        public void GameStateChanged(GameStateEnum _state);
-        public void LevelLoaded(Level _level);
+        public void Init(IMainController mainController);
+        public void GameStateChanged(GameStateEnum state);
+        public void LevelLoaded(Level level);
     }
 }

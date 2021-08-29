@@ -20,7 +20,7 @@ namespace VladB.GameTemplate {
         LevelsController_PlayerPrefs __playerPrefs;
         LevelsController_PlayerPrefs playerPrefs {
             get {
-                if (__playerPrefs == null) {
+                if(__playerPrefs == null) {
                     __playerPrefs = GetComponent<LevelsController_PlayerPrefs>();
                 }
                 return __playerPrefs;
@@ -62,14 +62,14 @@ namespace VladB.GameTemplate {
         }
 
         public virtual void GameStateChanged(GameStateEnum _state) {
-            switch (_state) {
+            switch(_state) {
                 case GameStateEnum.Start:
-                    if (level) {
+                    if(level) {
                         level.gameObject.SetActive(false);
                     }
                     break;
                 case GameStateEnum.Game:
-                    if (level) {
+                    if(level) {
                         level.gameObject.SetActive(true);
                     }
                     break;
@@ -83,12 +83,12 @@ namespace VladB.GameTemplate {
         protected virtual void LoadLevel() {
             levelPrefab = null;
 
-            if (isPlayLevelOnSceneIfExist) {
+            if(isPlayLevelOnSceneIfExist) {
                 isPlayLevelOnSceneIfExist = false;
                 levelPrefab = FindLevelOnScene();
             }
 
-            if (levelPrefab) {
+            if(levelPrefab) {
                 loadedLevel = -1;
             } else {
                 loadedLevel = CalculatedLoadedLevel();
@@ -103,7 +103,7 @@ namespace VladB.GameTemplate {
 
         protected virtual int CalculatedLoadedLevel() {
             int result = -1;
-            if (currentLevel <= countLevels) {
+            if(currentLevel <= countLevels) {
                 result = currentLevel;
             } else {
                 result = (currentLevel % countLevels) + 1;
@@ -119,7 +119,7 @@ namespace VladB.GameTemplate {
 
         protected virtual GameObject FindLevelOnScene() {
             Level tempLevel = FindObjectOfType<Level>();
-            if (tempLevel) {
+            if(tempLevel) {
                 tempLevel.gameObject.SetActive(false);
                 return tempLevel.gameObject;
             }
@@ -129,7 +129,7 @@ namespace VladB.GameTemplate {
 
 
         protected virtual void UnLoadCurrentLevel() {
-            if (level) {
+            if(level) {
                 Destroy(level.gameObject);
             }
         }
@@ -146,7 +146,7 @@ namespace VladB.GameTemplate {
             mainController.SetGameState(GameStateEnum.BeginUnloadingLevel);
             yield return WaitForAllReadyForUnLoad();
             UnLoadCurrentLevel();
-            mainController.SetGameState(GameStateEnum.EndLoadLevel);
+            mainController.SetGameState(GameStateEnum.EndUnloadingLevel);
 
             //Loading
             mainController.SetGameState(GameStateEnum.StartLoadLevel);
@@ -155,7 +155,7 @@ namespace VladB.GameTemplate {
 
             mainController.SetGameState(GameStateEnum.Start);
 
-            if (_isGameToo) {
+            if(_isGameToo) {
                 mainController.SetGameState(GameStateEnum.Game);
             }
         }

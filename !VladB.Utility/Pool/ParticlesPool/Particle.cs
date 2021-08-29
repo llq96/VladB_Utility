@@ -19,7 +19,16 @@ namespace VladB.Utility {
         //public bool isVibrateOnPlay = true;
         //public int vibrateTimeMs = 60;
 
+        public void Start() {
+            Init();
+        }
 
+        public void Init() {
+            timer = GetComponent<Timer>();
+
+            timer.OnEndTime -= EndTimer;
+            timer.OnEndTime += EndTimer;
+        }
 
         #region Play
         public virtual void Play() {
@@ -43,7 +52,7 @@ namespace VladB.Utility {
 
         //Осторожно, не тестировал
         public virtual void PlayWithDelays(float _delayParticles, float _delaySound = 0f, float _delayVibration = 0f) {
-            if (_delayParticles > 0f) {
+            if(_delayParticles > 0f) {
                 StartCoroutine(Run_Partciles_Cor(_delayParticles));
             } else {
                 Run_Particles();
@@ -67,7 +76,7 @@ namespace VladB.Utility {
 
         #region Run Particles/Sound/Vibration
         protected virtual void Run_Particles() {
-            for (int i = 0; i < particles.Length; i++) {
+            for(int i = 0; i < particles.Length; i++) {
                 particles[i].Play();
             }
         }
@@ -107,7 +116,7 @@ namespace VladB.Utility {
 
         #region Stop
         public virtual void Stop() {
-            for (int i = 0; i < particles.Length; i++) {
+            for(int i = 0; i < particles.Length; i++) {
                 particles[i].Clear(true);
             }
         }
@@ -125,11 +134,10 @@ namespace VladB.Utility {
         }
 
         public virtual void Init(Pool _pool) {
-            timer = GetComponent<Timer>();
-
-            timer.OnEndTime -= EndTimer;
-            timer.OnEndTime += EndTimer;
+            Init();
         }
+
+
         #endregion
 
 
@@ -140,8 +148,8 @@ namespace VladB.Utility {
 
         protected virtual float GetMaxDuration() {
             float result = 0f;
-            for (int i = 0; i < particles.Length; i++) {
-                if (particles[i]) {
+            for(int i = 0; i < particles.Length; i++) {
+                if(particles[i]) {
                     result = Mathf.Max(result, particles[i].main.duration);
                 }
             }

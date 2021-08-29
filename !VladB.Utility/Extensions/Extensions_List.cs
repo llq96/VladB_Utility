@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace VladB.Utility {
     public static partial class Extensions {
+        static Random random = new Random();
+
         #region Act
 
         /// <summary>
@@ -54,12 +56,22 @@ namespace VladB.Utility {
 
         #region GetString
         //TODO Use StringBuilder
-        public static string GetString<T>(this IList<T> list, string separator = " ") {
+        public static string GetString<T>(this IList<T> iList, string separator = " ") {
             string result = string.Empty;
-            for(int i = 0; i < list.Count; i++) {
-                result += list[i] + ((i != list.Count - 1) ? separator : "");
+            for(int i = 0; i < iList.Count; i++) {
+                result += iList[i] + ((i != iList.Count - 1) ? separator : "");
             }
             return result;
+        }
+        #endregion
+
+        #region Random
+        public static IList<T> GetSortedByRandom<T>(this IList<T> iList) {
+            return iList.OrderBy((item) => random.Next()).ToList();
+        }
+
+        public static T GetRandom<T>(this IList<T> iList) {
+            return (iList.Count > 0) ? iList[random.Next()] : default;
         }
         #endregion
     }

@@ -8,8 +8,8 @@ namespace VladB.GameTemplate {
         MainController mainController;
 
 
-        public virtual void Init(IMainController _iController) {
-            mainController = _iController as MainController;
+        public virtual void Init(IMainController iController) {
+            mainController = iController as MainController;
         }
 
         #region Awake/Start/Update/LateUpdate Functions
@@ -25,5 +25,16 @@ namespace VladB.GameTemplate {
         void LateUpdate() => LateUpdateFunc();
         protected virtual void LateUpdateFunc() { }
         #endregion
+
+
+
+#if UNITY_EDITOR
+        public virtual void LogIfExist<T>() where T : Component {
+            if(GetComponentsInChildren<T>().Length >= 1) {
+                Debug.Log(gameObject.name);
+            }
+        }
+#endif
+
     }
 }

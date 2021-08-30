@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using VladB.Utility;
 
 namespace VladB.GameTemplate {
     public class UIWindow : MonoBehaviour, IUIWindow {
@@ -8,15 +7,19 @@ namespace VladB.GameTemplate {
 
 
         public virtual void Open() {
-            gameObject.SetActive(true);
+            //gameObject.TryDo(g => g.SetActive(true));
+            if(gameObject) {
+                gameObject.SetActive(true);
+            }
             isOpened = true;
         }
 
         public virtual void Close() {
-            gameObject.SetActive(false);
+            //gameObject.TryDo(g => g.SetActive(false));
+            if(gameObject) {
+                gameObject.SetActive(false);
+            }
             isOpened = false;
         }
-
-
     }
 }

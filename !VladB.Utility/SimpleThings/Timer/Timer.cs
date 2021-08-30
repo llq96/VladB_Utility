@@ -13,7 +13,7 @@ namespace VladB.Utility {
         public virtual bool isTimerActive { get; private set; }
         public virtual float currentTime { get; private set; }
 
-        public event Action OnEndTime; //public delegate void EndTime();
+        public event Action OnEndTime;
 
 
         #region Public Functions

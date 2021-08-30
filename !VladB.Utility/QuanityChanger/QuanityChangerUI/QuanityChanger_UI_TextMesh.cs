@@ -8,6 +8,7 @@ namespace VladB.Utility {
         [Header("UI")]
         public TextMeshPro text;
 
+
         private void OnEnable() {
             UpdateUI();
         }

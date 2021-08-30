@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +12,7 @@ namespace VladB.GameTemplate {
 
         [Header("Debug")]
         [SerializeField] bool isDebugLog;
+
 
         public virtual void Init() {
             gameState = GetComponent<GameState>();
@@ -70,13 +70,12 @@ namespace VladB.GameTemplate {
             gameState.SetGameState(state);
         }
 
-        public virtual GameStateEnum GetGameState() { //IMainController Realization
+        public virtual GameStateEnum GetGameState() {
             return gameState.state;
         }
         #endregion
 
         #region Awake/Start/Update Functions
-
         void Awake() => AwakeFunc();
         protected virtual void AwakeFunc() { }
 
@@ -91,7 +90,8 @@ namespace VladB.GameTemplate {
         #endregion
     }
 
-    public interface IMainController {//Сейчас этот интерфейс нахуй не нужен, возможно в будущем тут что-то будет полезное, хз.
+
+    public interface IMainController {//Сейчас этот интерфейс совсем не нужен, возможно в будущем тут что-то будет полезное.
         public void Init();
 
         #region GameState
@@ -100,6 +100,7 @@ namespace VladB.GameTemplate {
         public GameStateEnum GetGameState();
         #endregion
     }
+
 
     public interface IController {
         public void Init(IMainController iMainController);

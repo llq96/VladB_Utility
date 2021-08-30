@@ -6,7 +6,7 @@ namespace VladB.Utility {
 #if UNITY_EDITOR
 			T loadedObject = Resources.Load<T>(path);
 			if(loadedObject == null) {
-				Debug.LogError($"Don not found resource: {path}");
+				Debug.LogError($"Do not found resource: {path}");
 			}
 			return loadedObject;
 #else
@@ -17,6 +17,5 @@ namespace VladB.Utility {
 		public static Sprite LoadSprite(string path) => Load<Sprite>(path);
 		public static Material LoadMaterial(string path) => Load<Material>(path);
 		public static GameObject LoadGameObject(string path) => Load<GameObject>(path);
-		//Что ещё добавить?
 	}
 }

@@ -40,15 +40,11 @@ namespace VladB.Utility {
 			style.normal.textColor = script.color;
 			style.fontSize = 12;
 
-			//EditorGUILayout.Space();
-
 			string text = EditorGUILayout.TextArea(script.text.IsNullOrEmpty() ? "Comment Here..." : script.text, style);
 			if (text != script.text) {
 				Undo.RecordObject(script, "Edit Comments");
 				script.text = text;
 			}
-
-			//EditorGUILayout.Space();
 
 			serializedObject.ApplyModifiedProperties();
 		}

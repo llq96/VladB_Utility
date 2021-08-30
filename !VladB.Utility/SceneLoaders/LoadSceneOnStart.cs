@@ -2,7 +2,7 @@
 
 namespace VladB.Utility {
     public class LoadSceneOnStart : MonoBehaviour {
-        [Header ("Settings")]
+        [Header ("Loading Settings")]
         [SerializeField] string levelName;
         [SerializeField] bool isAdditive;
 

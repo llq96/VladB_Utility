@@ -1,9 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace VladB.GameTemplate {
     public class GameOverController : MonoBehaviour, IController {
+
+        #region IController Realization
+        public virtual void GameStateChanged(GameStateEnum state) { }
+
+        public virtual void Init(IMainController mainController) { }
+
+        public virtual void LevelLoaded(Level level) { }
+        #endregion
 
         public virtual void GameOver(GameOverType type, float delay = 2f) {
             if (IsWinType(type)) {
@@ -23,22 +30,12 @@ namespace VladB.GameTemplate {
         }
         #endregion
 
-        #region IController Realization
-        public virtual void GameStateChanged(GameStateEnum state) {}
 
-        public virtual void Init(IMainController mainController) {}
-
-        public virtual void LevelLoaded(Level level) {}
-        #endregion
 
         #region IsWin/IsLose
-        public virtual bool IsWinType(GameOverType type) {
-            return type == GameOverType.Win;
-        }
+        public virtual bool IsWinType(GameOverType type) => type == GameOverType.Win;
 
-        public virtual bool IsLoseType(GameOverType type) {
-            return type == GameOverType.Lose;
-        }
+        public virtual bool IsLoseType(GameOverType type) => type == GameOverType.Lose;
         #endregion
     }
 

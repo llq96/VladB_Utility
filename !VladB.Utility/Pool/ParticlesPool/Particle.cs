@@ -101,14 +101,14 @@ namespace VladB.Utility {
             Run_Particles();
         }
 
-        //IEnumerator Run_Sounds_Cor(float _delay) {
-        //    yield return new WaitForSecondsRealtime(_delay);
+        //IEnumerator Run_Sounds_Cor(float delay) {
+        //    yield return new WaitForSecondsRealtime(delay);
         //    Run_Sound();
 
         //}
 
-        //IEnumerator Run_Vibration_Cor(float _delay) {
-        //    yield return new WaitForSecondsRealtime(_delay);
+        //IEnumerator Run_Vibration_Cor(float delay) {
+        //    yield return new WaitForSecondsRealtime(delay);
         //    Run_Vibration();
         //}
         #endregion
@@ -136,8 +136,6 @@ namespace VladB.Utility {
         public virtual void Init(Pool _pool) {
             Init();
         }
-
-
         #endregion
 
 
@@ -158,6 +156,8 @@ namespace VladB.Utility {
         #endregion
 
     }
+
+
 
     public interface IParticle {
         public void Play();

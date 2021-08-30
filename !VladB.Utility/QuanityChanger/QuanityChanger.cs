@@ -36,8 +36,8 @@ namespace VladB.Utility {
             return result;
         }
 
-        public virtual bool IsCanChangeQuanity(INumbered numbered) {
-            return numbered.lastQuanityChanger != this;
+        public virtual bool IsCanChangeQuanity(INumbered iNumbered) {
+            return iNumbered.lastQuanityChanger != this;
         }
 
         public abstract void ChangeQuality(INumbered iNumbered);
@@ -46,12 +46,14 @@ namespace VladB.Utility {
     }
 
 
+
     public enum QuanityChangerType {
         Plus,
         Multiply,
         Minus,
         Divide
     }
+
 
     public interface INumbered {
         public int count { get; set; }

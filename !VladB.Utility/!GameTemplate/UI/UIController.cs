@@ -21,7 +21,6 @@ namespace VladB.GameTemplate {
         public virtual void LevelLoaded(Level _level) { }
         #endregion
 
-
         #region Open/Close Window
         public virtual void OpenWindow<T>(bool isCloseOther = true) where T : IUIWindow {
             windowsList = windowsList.Where(x => x != null).ToList();
@@ -37,8 +36,6 @@ namespace VladB.GameTemplate {
             windowsList.Where(x => x is T).Act(x => x.Close());
         }
         #endregion
-
-
     }
 
 

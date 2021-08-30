@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using VladB.Utility;
 
@@ -10,15 +10,15 @@ namespace VladB.GameTemplate {
         MainController mainController;
 
         [Header("Levels")]
-        [SerializeField] string levelsPath;
-        [SerializeField] public int countLevels;
+        [SerializeField] protected string levelsPath;
+        [SerializeField] protected int countLevels;
 
         [Header("Debug")]
         [Tooltip("If there is a level on the scene, then it will be launched.")]
-        [SerializeField] bool isPlayLevelOnSceneIfExist = true;
+        [SerializeField] protected bool isPlayLevelOnSceneIfExist = true;
 
-        LevelsController_PlayerPrefs __playerPrefs;
-        LevelsController_PlayerPrefs playerPrefs {
+        protected LevelsController_PlayerPrefs __playerPrefs;
+        protected LevelsController_PlayerPrefs playerPrefs {
             get {
                 if(__playerPrefs == null) {
                     __playerPrefs = GetComponent<LevelsController_PlayerPrefs>();
@@ -28,8 +28,8 @@ namespace VladB.GameTemplate {
             }
         }
 
-        GameObject levelPrefab;
-        Level level;
+        protected GameObject levelPrefab;
+        protected Level level;
 
         #region Variables/Events Definitions
 
@@ -49,11 +49,13 @@ namespace VladB.GameTemplate {
         #endregion
 
         #region Events
-        public delegate void LevelLoadedEv(Level _level);
-        public event LevelLoadedEv OnLevelLoadedEv;
+        //public delegate void LevelLoadedEv(Level _level);
+        //public event LevelLoadedEv OnLevelLoadedEv;
+        public Action<Level> OnLevelLoaded;
         #endregion
 
         #endregion
+
 
         #region IController Realization
         public virtual void Init(IMainController iMmainController) {
@@ -61,8 +63,8 @@ namespace VladB.GameTemplate {
             currentLevel = lastPassedLevel + 1;//TODO ? После перезагрузки загружает уровень после последнего пройденного уровня, сделать enum 
         }
 
-        public virtual void GameStateChanged(GameStateEnum _state) {
-            switch(_state) {
+        public virtual void GameStateChanged(GameStateEnum state) {
+            switch(state) {
                 case GameStateEnum.Start:
                     if(level) {
                         level.gameObject.SetActive(false);
@@ -76,7 +78,7 @@ namespace VladB.GameTemplate {
             }
         }
 
-        public virtual void LevelLoaded(Level _level) { }
+        public virtual void LevelLoaded(Level level) { }
         #endregion
 
         #region Load/Unload Level
@@ -98,7 +100,7 @@ namespace VladB.GameTemplate {
             level = Instantiate(levelPrefab).GetComponent<Level>();
             level.gameObject.SetActive(true);
 
-            OnLevelLoadedEv?.Invoke(level);
+            OnLevelLoaded?.Invoke(level);
         }
 
         protected virtual int CalculatedLoadedLevel() {

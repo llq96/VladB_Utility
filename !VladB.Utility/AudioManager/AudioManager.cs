@@ -26,18 +26,18 @@ namespace VladB.Utility {
         static GameObject tempObj;
         static GameObject tempPrefab;
 
-        public static AudioSource GetAudioSource(string _soundPath) {
-            if (dict.TryGetValue(_soundPath, out tempSource)) {
+        public static AudioSource GetAudioSource(string soundPath) {
+            if (dict.TryGetValue(soundPath, out tempSource)) {
                 return tempSource;
             } else {
-                tempPrefab = ResourcesLoader.LoadGameObject(_soundPath);
+                tempPrefab = ResourcesLoader.LoadGameObject(soundPath);
                 if (tempPrefab == null) {
                     return null;
                 }
 
                 tempObj = Instantiate(tempPrefab, instance.transform);
                 tempSource = tempObj.GetComponent<AudioSource>();
-                dict.Add(_soundPath, tempSource);
+                dict.Add(soundPath, tempSource);
                 return tempSource;
             }
         }

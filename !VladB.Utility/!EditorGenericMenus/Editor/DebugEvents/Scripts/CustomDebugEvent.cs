@@ -11,10 +11,10 @@ namespace VladB.Utility {
         public string visualName;
 
         public abstract void Invoke(object extraInfo = null);
-        public abstract void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex);
+        public abstract void AddMenuItems(CustomDebugEvents customDebugEvents, int eventIndex);
 
         protected abstract string GetVisualName();
-        protected abstract void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex, Object _target, string _visualName);
+        protected abstract void AddMenuItems(CustomDebugEvents customDebugEvents, int eventIndex, Object target, string visualName);
     }
 
     [System.Serializable]
@@ -25,12 +25,12 @@ namespace VladB.Utility {
             unityEvent.Invoke((T)extraInfo);
         }
 
-        public override void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex) {
+        public override void AddMenuItems(CustomDebugEvents customDebugEvents, int eventIndex) {
             int count = unityEvent.GetPersistentEventCount();
             if (count == 0) {
                 Debug.LogError("0 Events");
             } else if (count == 1) {
-                AddMenuItems(_customDebugEvents, _eventIndex, unityEvent.GetPersistentTarget(0), GetVisualName());
+                AddMenuItems(customDebugEvents, eventIndex, unityEvent.GetPersistentTarget(0), GetVisualName());
             } else {
                 Debug.LogError("Works Only One Function In UnityEvents");
                 //Проблематично вызывать только определённые функции из UnityEvent
@@ -47,8 +47,8 @@ namespace VladB.Utility {
 
     [System.Serializable]
     public class CustomEvent_WithoutParams : CustomEvent<object> {
-        protected override void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex, Object _target, string _visualName) {
-           _customDebugEvents.AddMenuItem(_visualName, new SelectedItemInfo(CustomEventType.Basic, _eventIndex, null));
+        protected override void AddMenuItems(CustomDebugEvents customDebugEvents, int eventIndex, Object target, string visualName) {
+           customDebugEvents.AddMenuItem(visualName, new SelectedItemInfo(CustomEventType.Basic, eventIndex, null));
         }
     }
 
@@ -60,14 +60,14 @@ namespace VladB.Utility {
         public int step = 1;
         public int maxValue = 10;
 
-        protected override void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex, Object _target, string _visualName) {
+        protected override void AddMenuItems(CustomDebugEvents customDebugEvents, int eventIndex, Object target, string visualName) {
             if (step <= 0f) {
                 Debug.LogError("Wrong Step");
                 return;
             }
 
             for (int i = minValue; i <= maxValue; i += step) {
-                _customDebugEvents.AddMenuItem(_visualName + "/" + i, new SelectedItemInfo(CustomEventType.Int, _eventIndex, i));
+                customDebugEvents.AddMenuItem(visualName + "/" + i, new SelectedItemInfo(CustomEventType.Int, eventIndex, i));
             }
         }
     }
@@ -80,14 +80,14 @@ namespace VladB.Utility {
         public float step = 1;
         public float maxValue = 10;
 
-        protected override void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex, Object _target, string _visualName) {
+        protected override void AddMenuItems(CustomDebugEvents customDebugEvents, int eventIndex, Object target, string visualName) {
             if (step <= 0f) {
                 Debug.LogError("Wrong Step");
                 return;
             }
 
             for (float i = minValue; i <= maxValue; i += step) {
-                _customDebugEvents.AddMenuItem(_visualName + "/" + i, new SelectedItemInfo(CustomEventType.Float, _eventIndex, i));
+                customDebugEvents.AddMenuItem(visualName + "/" + i, new SelectedItemInfo(CustomEventType.Float, eventIndex, i));
             }
         }
     }
@@ -97,14 +97,14 @@ namespace VladB.Utility {
         [Header("Settings")]
         public string[] strings;
 
-        protected override void AddMenuItems(CustomDebugEvents _customDebugEvents, int _eventIndex, Object _target, string _visualName) {
+        protected override void AddMenuItems(CustomDebugEvents customDebugEvents, int eventIndex, Object target, string visualName) {
             if (strings == null) {
                 return;
             }
 
 
             for (int i = 0; i < strings.Length; i++) {
-                _customDebugEvents.AddMenuItem(_visualName + "/" + strings[i], new SelectedItemInfo(CustomEventType.String, _eventIndex, strings[i]));
+                customDebugEvents.AddMenuItem(visualName + "/" + strings[i], new SelectedItemInfo(CustomEventType.String, eventIndex, strings[i]));
             }
         }
     }

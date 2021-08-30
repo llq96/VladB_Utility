@@ -52,8 +52,8 @@ namespace VladB.Utility {
             return true;
         }
 
-        protected override void OnClicked(object _object) {
-            GameObject go = (GameObject)PrefabUtility.InstantiatePrefab((Object)_object, parent.transform);
+        protected override void OnClicked(object obj) {
+            GameObject go = (GameObject)PrefabUtility.InstantiatePrefab((Object)obj, parent.transform);
             Selection.activeGameObject = go;
             EditorSceneManager.MarkAllScenesDirty();
         }

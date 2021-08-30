@@ -12,11 +12,11 @@ namespace VladB.Utility {
         /// Выполняет указанное действие со всеми элементами списка/массива/любого другого IList
         /// </summary>
         /// <typeparam name="T">Тип элементов содержащихся в IList</typeparam>
-        /// <param name="list">Список, массив или любой другой IList</param>
+        /// <param name="iList">Список, массив или любой другой IList</param>
         /// <param name="action">Делегат, принимающий объект типа T и int(счётчик)</param>
-        public static void Act<T>(this IList<T> list, Action<T, int> action) {
-            for(int i = 0; i < list.Count; i++) {
-                action.Invoke(list[i], i);
+        public static void Act<T>(this IList<T> iList, Action<T, int> action) {
+            for(int i = 0; i < iList.Count; i++) {
+                action.Invoke(iList[i], i);
             }
         }
 
@@ -24,11 +24,11 @@ namespace VladB.Utility {
         /// Выполняет указанное действие со всеми элементами списка/массива/любого другого IList, аналогичен дефолтному ForEach(x=>{blablabla})
         /// </summary>
         /// <typeparam name="T">Тип элементов содержащихся в IList</typeparam>
-        /// <param name="list">Список, массив или любой другой IList</param>
+        /// <param name="iList">Список, массив или любой другой IList</param>
         /// <param name="action">Делегат, принимающий объект типа T</param>
-        public static void Act<T>(this IList<T> list, Action<T> action) {
-            for(int i = 0; i < list.Count; i++) {
-                action.Invoke(list[i]);
+        public static void Act<T>(this IList<T> iList, Action<T> action) {
+            for(int i = 0; i < iList.Count; i++) {
+                action.Invoke(iList[i]);
             }
         }
 

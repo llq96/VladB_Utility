@@ -27,8 +27,8 @@ namespace VladB.Utility {
 
         protected virtual bool IsCanGenerateMenu() { return true; }
 
-        public virtual void AddMenuItem(string _menuName, object _object) {
-            menu.AddItem(new GUIContent(_menuName, "123"), false, OnClicked, _object);
+        public virtual void AddMenuItem(string menuName, object obj) {
+            menu.AddItem(new GUIContent(menuName, "123"), false, OnClicked, obj);
         }
 
         protected virtual void ShowGenericMenuAtCursorPosition() {
@@ -50,7 +50,7 @@ namespace VladB.Utility {
 #endif
         }
 
-        protected virtual void OnClicked(object _object) { }
+        protected virtual void OnClicked(object obj) { }
     }
 
 }

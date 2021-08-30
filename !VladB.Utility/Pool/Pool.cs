@@ -13,8 +13,8 @@ namespace VladB.Utility {
         IPoolObject tempPoolObject;
 
 
-        public virtual void InitObject(IPoolObject _object) {
-            _object.Init(this);
+        public virtual void InitObject(IPoolObject poolObject) {
+            poolObject.Init(this);
         }
 
         public virtual IPoolObject InstantiateObject() {
@@ -26,8 +26,8 @@ namespace VladB.Utility {
             return tempPoolObject;
         }
 
-        public virtual void InstantiateObjects(int _count) {
-            for(int i = 0; i < _count; i++) {
+        public virtual void InstantiateObjects(int count) {
+            for(int i = 0; i < count; i++) {
                 InstantiateObject();
             }
         }
@@ -47,34 +47,33 @@ namespace VladB.Utility {
                 return null;
             }
 
-            tempPoolObject = InstantiateObject();
-            return ReturnIPoolobject(tempPoolObject);
+            return ReturnIPoolobject(InstantiateObject());
 
-            //Local Function
-            IPoolObject ReturnIPoolobject(IPoolObject _poolObject) {
-                _poolObject.isBusy = true;
-                return _poolObject;
+
+            static IPoolObject ReturnIPoolobject(IPoolObject poolObject) { //Local Function
+                poolObject.isBusy = true;
+                return poolObject;
             }
         }
 
-        public virtual void SetActiveAllObjects(bool _isActive, bool _isMakeAllFree) {
+        public virtual void SetActiveAllObjects(bool isActive, bool isMakeAllFree) {
             for(int i = 0; i < objects.Count; i++) {
-                objects[i].SetActive(_isActive);
-                if(_isMakeAllFree) {
+                objects[i].SetActive(isActive);
+                if(isMakeAllFree) {
                     objects[i].isBusy = false;
                 }
             }
         }
 
-        public virtual IEnumerator SetActiveAllObjects_Cor(bool _isActive, bool _isMakeAllFree, float _delay = 0f) {
-            yield return new WaitForSeconds(_delay);
-            SetActiveAllObjects(_isActive, _isMakeAllFree);
+        public virtual IEnumerator SetActiveAllObjects_Cor(bool isActive, bool isMakeAllFree, float delay = 0f) {
+            yield return new WaitForSeconds(delay);
+            SetActiveAllObjects(isActive, isMakeAllFree);
         }
     }
 
     public interface IPoolObject {
         public bool isBusy { get; set; }
-        public void SetActive(bool _isActive);
-        public void Init(Pool _pool);
+        public void SetActive(bool isActive);
+        public void Init(Pool pool);
     }
 }

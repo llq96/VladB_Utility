@@ -12,19 +12,19 @@ namespace VladB.Utility {
         [Header("Base UI")]
         [SerializeField] protected GameObject uiContainer;
 
-        public virtual void Init(LockedItem _lockedItem) {
-            lockedItem = _lockedItem;
+        public virtual void Init(LockedItem lockedItem) {
+            this.lockedItem = lockedItem;
             UpdateUI();
         }
         public virtual void UpdateUI() {
             UpdateUI(lockedItem ? lockedItem.liso : null);
         }
 
-        public abstract void UpdateUI(Liso _liso);
+        public abstract void UpdateUI(Liso liso);
 
-        protected virtual void SetActiveUI(bool _isActive) {
+        protected virtual void SetActiveUI(bool isActive) {
             if(uiContainer) {
-                uiContainer.SetActive(_isActive);
+                uiContainer.SetActive(isActive);
             }
         }
 

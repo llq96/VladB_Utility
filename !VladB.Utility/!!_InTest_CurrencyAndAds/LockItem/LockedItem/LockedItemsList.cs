@@ -11,28 +11,28 @@ namespace VladB.Utility {
         public LockedItem lockedItem;
 
         #region SetLockedItem
-        public void SetLockItem(int _index, bool _isNeedInitialize = true) {
-            if((_index >= 0) && (_index < list.Count)) {
-                LockedItemSetter.Set(lockedItem, list[_index], _isNeedInitialize);
+        public void SetLockItem(int index, bool isNeedInitialize = true) {
+            if((index >= 0) && (index < list.Count)) {
+                LockedItemSetter.Set(lockedItem, list[index], isNeedInitialize);
             }
         }
 
-        public void SetLockItem(int _index, LockedItem _customLockItem, bool _isNeedInitialize = true) {
-            if((_index >= 0) && (_index < list.Count)) {
-                LockedItemSetter.Set(_customLockItem, list[_index], _isNeedInitialize);
+        public void SetLockItem(int index, LockedItem customLockItem, bool isNeedInitialize = true) {
+            if((index >= 0) && (index < list.Count)) {
+                LockedItemSetter.Set(customLockItem, list[index], isNeedInitialize);
             }
         }
         #endregion
 
         #region SetLockedItems
-        public void SetLockItems(LockedItem[] _customLockItems, bool _isNeedInitialize = true) {
-            for(int i = 0; i < _customLockItems.Length; i++) {
-                SetLockItem(i, _customLockItems[i], _isNeedInitialize);
+        public void SetLockItems(LockedItem[] customLockItems, bool isNeedInitialize = true) {
+            for(int i = 0; i < customLockItems.Length; i++) {
+                SetLockItem(i, customLockItems[i], isNeedInitialize);
             }
         }
 
-        public void SetLockItems(List<LockedItem> _customLockItems, bool _isNeedInitialize = true) {
-            SetLockItems(_customLockItems.ToArray(), _isNeedInitialize);
+        public void SetLockItems(List<LockedItem> customLockItems, bool isNeedInitialize = true) {
+            SetLockItems(customLockItems.ToArray(), isNeedInitialize);
         }
         #endregion
     }

@@ -64,8 +64,8 @@ namespace VladB.Utility {
         }
         #endregion
 
-        protected override void OnClicked(object _scenePath) {
-            string path = (string)_scenePath;
+        protected override void OnClicked(object scenePath) {
+            string path = (string)scenePath;
             if (!Application.isPlaying) {
                 EditorSceneManager.SaveOpenScenes();
                 //EditorSceneManager.sceneSaved += scene => {

@@ -7,50 +7,42 @@ using UnityEditor;
 namespace VladB.Utility {
     [CreateAssetMenu(fileName = "NewÑurrencySO", menuName = "VladB/NewÑurrencySO", order = 1)]
     public class Currency : ScriptableObject {
-        //[Header("Player Prefs")]
         [HideInInspector] public string ppName = "";
 
         public int currencyValue {
             get {
                 if(ppName.IsNullOrEmpty()) {
-                    ppName = Liso.GetRandomPP();
+                    ppName = Extensions.GetRandomPP();
                 }
                 return PlayerPrefs.GetInt(ppName, 0);
             }
-            set {
+            private set {
                 if(ppName.IsNullOrEmpty()) {
-                    ppName = Liso.GetRandomPP();
+                    ppName = Extensions.GetRandomPP();
                 }
                 PlayerPrefs.SetInt(ppName, value);
             }
         }
 
-        public delegate void CurrencyChangeEvent(int _currencyValue, int delta = 0);
+        public delegate void CurrencyChangeEvent(int currencyValue, int deltaValue = 0);
         public event CurrencyChangeEvent OnCurrencyChange;
 
 
         public bool IsCanBuy(int price) => currencyValue >= price;
 
-        public void ChangeValueWithDelta(int _deltaValue) {
-            SetValue(currencyValue + _deltaValue);
+        public void ChangeValueWithDelta(int deltaValue) {
+            SetValue(currencyValue + deltaValue);
         }
 
-        public void SetValue(int _newCurrencyValue) {
-            int _delta = _newCurrencyValue - currencyValue;
-            currencyValue = _newCurrencyValue;
+        public void SetValue(int newCurrencyValue) {
+            int deltaValue = newCurrencyValue - currencyValue;
+            currencyValue = newCurrencyValue;
             SaveCurrency();
-            OnCurrencyChange?.Invoke(currencyValue, _delta);
+            OnCurrencyChange?.Invoke(currencyValue, deltaValue);
         }
-        //public void AddCurrency_WithDelay(float delay, int value, bool isAddAchievement = true) {
-        //    StartCoroutine(AddCurrency_Cor(delay, value, isAddAchievement));
-        //}
 
-        //IEnumerator AddCurrency_Cor(float delay, int value, bool isAddAchievement = true) {
-        //    yield return new WaitForSecondsRealtime(delay);
-        //    AddCurrency(value, isAddAchievement);
-        //}
 
-        public void SaveCurrency() {
+        void SaveCurrency() {
             PlayerPrefs.SetInt("shopcurrency", currencyValue);
         }
     }
@@ -68,7 +60,7 @@ namespace VladB.Utility {
             base.OnInspectorGUI();
 
             if(script.ppName.IsNullOrEmpty()) {
-                script.ppName = Liso.GetRandomPP();
+                script.ppName = Extensions.GetRandomPP();
             }
 
             serializedObject.Update();

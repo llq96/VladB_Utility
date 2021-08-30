@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -19,25 +16,19 @@ namespace VladB.Utility {
         public virtual bool available {
             get {
                 if(ppName.IsNullOrEmpty()) {
-                    ppName = GetRandomPP();
+                    ppName = Extensions.GetRandomPP();
                 }
                 return (!isLockOnStart || (PlayerPrefs.GetInt(ppName, 0) == 1));
             }
             set {
                 if(ppName.IsNullOrEmpty()) {
-                    ppName = GetRandomPP();
+                    ppName = Extensions.GetRandomPP();
                 }
                 PlayerPrefs.SetInt(ppName, (value == true) ? 1 : 0);
             }
         }
 
-        //TODO Перенести куда-нибудь
-        public static string GetRandomPP() {
-            string s1 = Guid.NewGuid().ToString();
-            byte[] s2 = Encoding.UTF8.GetBytes(s1);
-            string s3 = Convert.ToBase64String(s2);
-            return s3.Substring(0, 20);
-        }
+
     }
 
 

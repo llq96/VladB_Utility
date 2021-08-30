@@ -35,16 +35,16 @@ namespace VladB.GameTemplate {
 
         #region PlayerPrefs
         public virtual int currentLevel {
-            get { return playerPrefs.currentLevel; }
-            set { playerPrefs.currentLevel = value; }
+            get => playerPrefs.currentLevel;
+            set => playerPrefs.currentLevel = value;
         }
         public virtual int loadedLevel {
-            get { return playerPrefs.loadedLevel; }
-            set { playerPrefs.loadedLevel = value; }
+            get => playerPrefs.loadedLevel;
+            set => playerPrefs.loadedLevel = value;
         }
         public virtual int lastPassedLevel {
-            get { return playerPrefs.lastPassedLevel; }
-            set { playerPrefs.lastPassedLevel = value; }
+            get => playerPrefs.lastPassedLevel;
+            set => playerPrefs.lastPassedLevel = value;
         }
         #endregion
 
@@ -56,8 +56,8 @@ namespace VladB.GameTemplate {
         #endregion
 
         #region IController Realization
-        public virtual void Init(IMainController _mainController) {
-            mainController = _mainController as MainController;
+        public virtual void Init(IMainController iMmainController) {
+            mainController = iMmainController as MainController;
             currentLevel = lastPassedLevel + 1;//TODO ? После перезагрузки загружает уровень после последнего пройденного уровня, сделать enum 
         }
 
@@ -137,11 +137,11 @@ namespace VladB.GameTemplate {
 
         #region Other Functions
 
-        public virtual void ReloadLevelWithGameStates(bool _isGameToo = true) {
-            StartCoroutine(ReloadLevelWithGameStates_Cor(_isGameToo));
+        public virtual void ReloadLevelWithGameStates(bool isGameToo = true) {
+            StartCoroutine(ReloadLevelWithGameStates_Cor(isGameToo));
         }
 
-        protected virtual IEnumerator ReloadLevelWithGameStates_Cor(bool _isGameToo = true) {
+        protected virtual IEnumerator ReloadLevelWithGameStates_Cor(bool isGameToo = true) {
             //UNloading
             mainController.SetGameState(GameStateEnum.BeginUnloadingLevel);
             yield return WaitForAllReadyForUnLoad();
@@ -155,7 +155,7 @@ namespace VladB.GameTemplate {
 
             mainController.SetGameState(GameStateEnum.Start);
 
-            if(_isGameToo) {
+            if(isGameToo) {
                 mainController.SetGameState(GameStateEnum.Game);
             }
         }

@@ -17,15 +17,15 @@ namespace VladB.Utility {
 
 
         #region Public Functions
-        public virtual void TimerSetActive(bool _isActive, bool _isReset = false) {
-            isTimerActive = _isActive;
-            if(_isReset) {
+        public virtual void TimerSetActive(bool isActive, bool isReset = false) {
+            isTimerActive = isActive;
+            if(isReset) {
                 currentTime = maxTimeValue;
             }
         }
 
-        public virtual string GetTimeString(ViewType _viewType) {
-            switch(_viewType) {
+        public virtual string GetTimeString(ViewType viewType) {
+            switch(viewType) {
                 case ViewType.JustInt: return ((int)currentTime).ToString();
                 case ViewType.JustFloat: return currentTime.ToString();
                 default: return "";

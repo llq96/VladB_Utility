@@ -16,9 +16,9 @@ namespace VladB.Utility {
 #endif
         }
 
-        void SetTargetFPS(int _fps) {
-            if(_fps > 0) {
-                Application.targetFrameRate = _fps;
+        void SetTargetFPS(int fps) {
+            if(fps > 0) {
+                Application.targetFrameRate = fps;
             }
         }
 

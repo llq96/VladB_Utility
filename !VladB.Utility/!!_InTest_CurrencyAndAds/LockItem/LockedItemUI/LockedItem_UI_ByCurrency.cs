@@ -9,10 +9,10 @@ namespace VladB.Utility {
         [Header ("UI")]
         public string priceLabelValue;
 
-        public override void UpdateUI(Liso _liso) {
-            liso = _liso as Liso_ByCurrency;
+        public override void UpdateUI(Liso liso) {
+            this.liso = liso as Liso_ByCurrency;
 
-            if(liso == null) {
+            if(this.liso == null) {
                 if(isAutoDestory) {
                     Destroy(uiContainer);
                     Destroy(this);
@@ -23,7 +23,7 @@ namespace VladB.Utility {
             }
 
             SetActiveUI(true);
-            priceLabelValue = liso.price.ToString();//TODO
+            priceLabelValue = this.liso.price.ToString();//TODO
         }
 
         public override void ClickOnLockUI() {

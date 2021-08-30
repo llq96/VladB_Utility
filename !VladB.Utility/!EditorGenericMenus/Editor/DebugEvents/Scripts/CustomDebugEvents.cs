@@ -37,8 +37,8 @@ namespace VladB.Utility {
             });
         }
 
-        protected override void OnClicked(object _object) {
-            Invoke((SelectedItemInfo)_object);
+        protected override void OnClicked(object obj) {
+            Invoke((SelectedItemInfo)obj);
         }
 
         void Invoke(SelectedItemInfo info) {
@@ -77,10 +77,10 @@ namespace VladB.Utility {
         public int eventIndex;
         public object extraInfo;
 
-        public SelectedItemInfo(CustomEventType _type, int _eventIndex, object _extraInfo) {
-            type = _type;
-            eventIndex = _eventIndex;
-            extraInfo = _extraInfo;
+        public SelectedItemInfo(CustomEventType type, int eventIndex, object extraInfo) {
+            this.type = type;
+            this.eventIndex = eventIndex;
+            this.extraInfo = extraInfo;
         }
     }
 

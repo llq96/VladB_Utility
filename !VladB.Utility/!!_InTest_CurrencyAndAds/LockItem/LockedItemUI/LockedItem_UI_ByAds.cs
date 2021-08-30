@@ -10,15 +10,15 @@ namespace VladB.Utility {
         [Header ("UI")]
         public string currentCountAdsLabelUI;
 
-        public override void UpdateUI(Liso _liso) {
-            liso = _liso as Liso_ByAds;
+        public override void UpdateUI(Liso liso) {
+            this.liso = liso as Liso_ByAds;
 
-            if(liso == null) {
+            if(this.liso == null) {
                 if(isAutoDestory) {
                     Destroy(uiContainer);
                     Destroy(this);
                 } else {
-                    SetActiveUI(false);
+                    base.SetActiveUI(false);
                 }
                 return;
             }

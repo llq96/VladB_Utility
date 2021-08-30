@@ -7,9 +7,9 @@ namespace VladB.Utility {
         [SerializeField] Text timerLabel;
 
 
-        protected override void SetText(string _text) {
-            if((timerLabel) && (timerLabel.text != _text)) {
-                timerLabel.text = _text;
+        protected override void SetText(string text) {
+            if((timerLabel) && (timerLabel.text != text)) {
+                timerLabel.text = text;
             }
         }
     }

@@ -8,8 +8,8 @@ namespace VladB.GameTemplate {
         MainController mainController;
 
 
-        public virtual void Init(IMainController iController) {
-            mainController = iController as MainController;
+        public virtual void Init(IMainController iMainController) {
+            mainController = iMainController as MainController;
         }
 
         #region Awake/Start/Update/LateUpdate Functions

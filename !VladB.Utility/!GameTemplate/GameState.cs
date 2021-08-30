@@ -14,18 +14,18 @@ namespace VladB.GameTemplate {
         public virtual GameStateEnum GetState() => state;
         public virtual bool isGame => state == GameStateEnum.Game;
 
-        public delegate void GameStateChanged(GameStateEnum _state);
+        public delegate void GameStateChanged(GameStateEnum state);
         public event GameStateChanged OnGameStateChanged;
 
 
-        public virtual void SetGameState(GameStateEnum _state) {
-            state = _state;
+        public virtual void SetGameState(GameStateEnum state) {
+            this.state = state;
 
             if(isDebugLog) {
-                Debug.Log("OnGameStateChanged , state = " + _state);
+                Debug.Log("OnGameStateChanged , state = " + state);
             }
 
-            OnGameStateChanged?.Invoke(_state);
+            OnGameStateChanged?.Invoke(state);
         }
     }
 

@@ -16,9 +16,9 @@ namespace VladB.Utility {
             }
         }
 
-        protected override void UpdateCurrencyValue(int _currencyValue, int _delta = 0) {
-            base.UpdateCurrencyValue(_currencyValue, _delta);
-            currencyUpdateSpeed = Mathf.Max(100, Mathf.Abs(smoothCurrencyValue - _currencyValue));
+        protected override void UpdateCurrencyValue(int currencyValue, int deltaValue = 0) {
+            base.UpdateCurrencyValue(currencyValue, deltaValue);
+            currencyUpdateSpeed = Mathf.Max(100, Mathf.Abs(smoothCurrencyValue - currencyValue));
         }
 
         protected override void OnEnableFunc() {

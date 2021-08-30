@@ -51,9 +51,9 @@ namespace VladB.Utility {
 
 
         //Осторожно, не тестировал
-        public virtual void PlayWithDelays(float _delayParticles, float _delaySound = 0f, float _delayVibration = 0f) {
-            if(_delayParticles > 0f) {
-                StartCoroutine(Run_Partciles_Cor(_delayParticles));
+        public virtual void PlayWithDelays(float delayParticles, float delaySound = 0f, float delayVibration = 0f) {
+            if(delayParticles > 0f) {
+                StartCoroutine(Run_Partciles_Cor(delayParticles));
             } else {
                 Run_Particles();
             }
@@ -96,8 +96,8 @@ namespace VladB.Utility {
 
 
         #region Coroutines
-        protected virtual IEnumerator Run_Partciles_Cor(float _delay) {
-            yield return new WaitForSecondsRealtime(_delay);
+        protected virtual IEnumerator Run_Partciles_Cor(float delay) {
+            yield return new WaitForSecondsRealtime(delay);
             Run_Particles();
         }
 

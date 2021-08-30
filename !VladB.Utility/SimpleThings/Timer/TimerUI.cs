@@ -31,13 +31,13 @@ namespace VladB.Utility {
             }
         }
 
-        protected virtual void SetActiveTimerUI(bool _isActive) {
-            if((timerUI)&& (timerUI.activeSelf != _isActive)) {
-                timerUI.SetActive(_isActive);
+        protected virtual void SetActiveTimerUI(bool isActive) {
+            if((timerUI)&& (timerUI.activeSelf != isActive)) {
+                timerUI.SetActive(isActive);
             }
         }
 
-        protected virtual void SetText(string _text) {
+        protected virtual void SetText(string text) {
             //Debug.Log(_text);
         }
     }

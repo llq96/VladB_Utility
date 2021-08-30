@@ -64,10 +64,10 @@ namespace VladB.GameTemplate {
         }
 
         #region GameState
-        public virtual void GameStateChanged(GameStateEnum _state) { }
+        public virtual void GameStateChanged(GameStateEnum state) { }
 
-        public virtual void SetGameState(GameStateEnum _state) {
-            gameState.SetGameState(_state);
+        public virtual void SetGameState(GameStateEnum state) {
+            gameState.SetGameState(state);
         }
 
         public virtual GameStateEnum GetGameState() { //IMainController Realization
@@ -102,7 +102,7 @@ namespace VladB.GameTemplate {
     }
 
     public interface IController {
-        public void Init(IMainController mainController);
+        public void Init(IMainController iMainController);
         public void GameStateChanged(GameStateEnum state);
         public void LevelLoaded(Level level);
     }

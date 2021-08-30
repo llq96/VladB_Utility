@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -9,9 +7,13 @@ namespace VladB.Utility {
         public Currency currency;
 
         protected int currencyValue;
+        [Header("Prefix/Postfix")]
+        public string prefix;
+        public string postfix;
 
-        protected virtual void UpdateCurrencyValue(int _currencyValue, int _delta = 0) {
-            currencyValue = _currencyValue;
+
+        protected virtual void UpdateCurrencyValue(int currencyValue, int deltaValue = 0) {
+            this.currencyValue = currencyValue;
         }
 
         public virtual void UpdateCurrencyValue() {

@@ -13,34 +13,34 @@ namespace VladB.Utility {
 
         public virtual void Init() {}
 
-        public virtual int GetCalculatedValue(int _value = 1, int _minValue = 1, int _maxValue = int.MaxValue) {
+        public virtual int GetCalculatedValue(int value = 1, int minValue = 1, int maxValue = int.MaxValue) {
             int result = 0;
             switch (type) {
                 case QuanityChangerType.Plus:
-                    result = _value + number;
+                    result = value + number;
                     break;
                 case QuanityChangerType.Multiply:
-                    result = _value * number;
+                    result = value * number;
                     break;
                 case QuanityChangerType.Minus:
-                    result = _value - number;
+                    result = value - number;
                     break;
                 case QuanityChangerType.Divide:
-                    result = Mathf.RoundToInt(_value / (float)number);
+                    result = Mathf.RoundToInt(value / (float)number);
                     break;
                 default:
                     break;
             }
 
-            result = Mathf.Clamp(result, _minValue, _maxValue);
+            result = Mathf.Clamp(result, minValue, maxValue);
             return result;
         }
 
-        public virtual bool IsCanChangeQuanity(INumbered _numbered) {
-            return _numbered.lastQuanityChanger != this;
+        public virtual bool IsCanChangeQuanity(INumbered numbered) {
+            return numbered.lastQuanityChanger != this;
         }
 
-        public abstract void ChangeQuality(INumbered _numbered);
+        public abstract void ChangeQuality(INumbered iNumbered);
 
         public virtual string GetText() => $"{symbols[(int)type]}{number}";
     }

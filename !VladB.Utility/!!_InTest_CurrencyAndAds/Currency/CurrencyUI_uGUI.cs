@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 using TMPro;
+
 namespace VladB.Utility {
     public class CurrencyUI_uGUI : CurrencyUI_Smooth {
         [Header("UI:")]
@@ -17,7 +15,7 @@ namespace VladB.Utility {
         protected override void UpdateCurrencyUI() {
             base.UpdateCurrencyUI();
             if(tmp) {
-                tmp.text = $"{(int)smoothCurrencyValue}";
+                tmp.text = $"{prefix}{(int)smoothCurrencyValue}{postfix}";
             }
         }
 

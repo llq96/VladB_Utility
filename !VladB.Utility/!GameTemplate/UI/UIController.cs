@@ -9,39 +9,9 @@ namespace VladB.GameTemplate {
 
         protected List<IUIWindow> windowsList;
 
-        #region Open/Close Window
-        public virtual void OpenWindow<T>(bool _isCloseOther = true) where T : IUIWindow { //TODO Проверить на практике
-            windowsList = windowsList.Where(x => x != null).ToList();
-
-            if(_isCloseOther) {
-                windowsList.Where(x => (x.isOpened && !(x is T))).Act(item => item.Close());
-            }
-
-            windowsList.Where(x => (x is T)).Act(item => item.Open());
-            
-            //Почти тоже самое без linq
-            //foreach(IUIWindow _window in windowsList) {
-            //    if (_isCloseOther) {
-            //        if (_window.isOpened == true) {
-            //            _window.Close();
-            //        }
-            //    }
-            //    if (_window is T) {
-            //        _window.Open();
-            //    }
-            //}
-
-        }
-
-        public virtual void CloseWindow<T>() where T : IUIWindow {
-            windowsList.Where(x => x is T).Act(x => x.Close());
-        }
-        #endregion
-
         #region IController Realization
-
-        public virtual void Init(IMainController _mainController) {
-            mainController = _mainController as MainController;
+        public virtual void Init(IMainController iMainController) {
+            this.mainController = iMainController as MainController;
             windowsList = GetComponentsInChildren<IUIWindow>(true).ToList();
             windowsList.Act(m => m.Close());
         }
@@ -49,8 +19,26 @@ namespace VladB.GameTemplate {
         public virtual void GameStateChanged(GameStateEnum _state) { }
 
         public virtual void LevelLoaded(Level _level) { }
-
         #endregion
+
+
+        #region Open/Close Window
+        public virtual void OpenWindow<T>(bool isCloseOther = true) where T : IUIWindow {
+            windowsList = windowsList.Where(x => x != null).ToList();
+
+            if(isCloseOther) {
+                windowsList.Where(x => (x.isOpened && !(x is T))).Act(item => item.Close());
+            }
+
+            windowsList.Where(x => (x is T)).Act(item => item.Open());
+        }
+
+        public virtual void CloseWindow<T>() where T : IUIWindow {
+            windowsList.Where(x => x is T).Act(x => x.Close());
+        }
+        #endregion
+
+
     }
 
 

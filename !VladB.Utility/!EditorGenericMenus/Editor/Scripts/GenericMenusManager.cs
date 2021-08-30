@@ -90,10 +90,10 @@ namespace VladB.Utility {
 
 
 
-        void TryGenerateGenericMenu(GemericMenuKeys _keys) {
+        void TryGenerateGenericMenu(GemericMenuKeys keys) {
             if (menus != null) {
                 for (int i = 0; i < menus.Length; i++) {
-                    if (menus[i].keys == _keys) {
+                    if (menus[i].keys == keys) {
 
                         for (int k = 0; k < menus[i].events.GetPersistentEventCount(); k++) {
                             menus[i].events.SetPersistentListenerState(k, UnityEngine.Events.UnityEventCallState.EditorAndRuntime);

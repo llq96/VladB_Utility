@@ -68,7 +68,7 @@ namespace VladB.Utility {
 
 
 public interface ILockedItemUI {
-    public void Init(LockedItem _lockedItem);
+    public void Init(LockedItem lockedItem);
     public void ClickOnLockUI();
     public void UpdateUI();
 }

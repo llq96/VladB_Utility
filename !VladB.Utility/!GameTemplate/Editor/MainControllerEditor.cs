@@ -23,7 +23,7 @@ public class MainControllerEditor : Editor {
         GUIContent label = new GUIContent($"Lists By State {(isAnyListModified ? "(MODIFIED)" : "")}");
         EditorGUILayout.PropertyField(serializedObject.FindProperty("listsByState"), label, true);
 
-        if(GUILayout.Button("Reset listsByState")) {
+        if(GUILayout.Button("Reset   Lists By State")) {
             script.listsByState.Clear();
             OnInspectorGUI();
         }

@@ -58,7 +58,7 @@ namespace VladB.Utility {
         }
 
         public virtual void SetActiveAllObjects(bool isActive, bool isMakeAllFree) {
-            objects.Act(obj => obj.SetActive(isActive));
+            objects.Act(obj => obj.SetActivePoolObject(isActive));
             if(isMakeAllFree) {
                 objects.Act(obj => obj.isBusy = false);
             }
@@ -73,7 +73,7 @@ namespace VladB.Utility {
 
     public interface IPoolObject {
         public bool isBusy { get; set; }
-        public void SetActive(bool isActive);//TODO rename
+        public void SetActivePoolObject(bool isActive);
         public void Init(Pool pool);
     }
 }

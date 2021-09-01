@@ -33,16 +33,19 @@ namespace VladB.GameTemplate {
     }
 
     public enum GameStateEnum {
+        //При добавлении новых элементов обязательно ресетнуть списки в MainController'e
         None,
         BeginUnloadingLevel,
         EndUnloadingLevel,
 
         BeginLoadLevel,
         LevelLoaded,
+        LevelInitialized,
 
         Start,
         Game,
 
+        BeginGameOver,
         GameOver,
 
         Pausing,
@@ -54,7 +57,7 @@ namespace VladB.GameTemplate {
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(GameState))]
-    public class CommentEditor : Editor {
+    public class CommentEditor : Editor { //TODO Добавить список state'ов
         GameState script => target as GameState;
 
         public override void OnInspectorGUI() {

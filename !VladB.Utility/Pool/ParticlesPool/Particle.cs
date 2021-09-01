@@ -127,7 +127,7 @@ namespace VladB.Utility {
 
         #region IPoolObject Realization
         public virtual bool isBusy { get; set; }
-        public virtual void SetActive(bool _isActive) {
+        public virtual void SetActivePoolObject(bool _isActive) {
             //if (_isActive) {
             //    Play();
             //} else {

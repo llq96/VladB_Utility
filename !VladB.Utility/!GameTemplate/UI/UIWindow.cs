@@ -7,7 +7,7 @@ namespace VladB.GameTemplate {
 
 
         public virtual void Open() {
-            gameObject.TryDo(g => g.SetActive(true));
+            //gameObject.TryDo(g => g.SetActive(true));
             if(gameObject) {
                 gameObject.SetActive(true);
             }

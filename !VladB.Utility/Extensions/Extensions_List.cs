@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace VladB.Utility {
     public static partial class Extensions {
@@ -55,13 +56,12 @@ namespace VladB.Utility {
         #endregion
 
         #region GetString
-        //TODO Use StringBuilder
         public static string GetString<T>(this IList<T> iList, string separator = " ") {
-            string result = string.Empty;
+            StringBuilder sb = new StringBuilder();
             for(int i = 0; i < iList.Count; i++) {
-                result += iList[i] + ((i != iList.Count - 1) ? separator : "");
+                sb.Append(iList[i] + ((i != iList.Count - 1) ? separator : ""));
             }
-            return result;
+            return sb.ToString();
         }
         #endregion
 

@@ -10,12 +10,10 @@ namespace VladB.Utility {
 
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
-            if (Application.isPlaying) {
+            if(Application.isPlaying) {
                 ShowTimer();
             }
         }
-
-        
 
         void ShowTimer() {
             if(script == null) {
@@ -32,7 +30,7 @@ namespace VladB.Utility {
 
             style.normal.textColor = script.isTimerActive ? Color.green : Color.red;
 
-            if (minutes == 0) {
+            if(minutes == 0) {
                 EditorGUILayout.LabelField($"{seconds}.{mili}", style);
             } else {
                 EditorGUILayout.LabelField($"{minutes}:{seconds}.{mili}", style);
@@ -42,7 +40,7 @@ namespace VladB.Utility {
         }
 
         void CheckStyle() {
-            if(style == null){
+            if(style == null) {
                 style = new GUIStyle {
                     alignment = TextAnchor.MiddleLeft,
                     fontSize = 40

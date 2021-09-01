@@ -9,31 +9,30 @@ namespace VladB.GameTemplate {
 
         protected List<IUIWindow> windowsList;
 
+
         #region IController Realization
-        public virtual void Init(IMainController iMainController) {
-            this.mainController = iMainController as MainController;
+        public virtual void Init(MainController mainController) {
+            this.mainController = mainController;
             windowsList = GetComponentsInChildren<IUIWindow>(true).ToList();
-            windowsList.Act(m => m.Close());
+            windowsList.Act(w => w.Close());
         }
 
-        public virtual void GameStateChanged(GameStateEnum _state) { }
-
-        public virtual void LevelLoaded(Level _level) { }
+        public virtual void GameStateChanged(GameStateEnum _state, params object[] parameters) { }
         #endregion
 
         #region Open/Close Window
         public virtual void OpenWindow<T>(bool isCloseOther = true) where T : IUIWindow {
-            windowsList = windowsList.Where(x => x != null).ToList();
+            windowsList = windowsList.Where(w => w != null).ToList();
 
             if(isCloseOther) {
-                windowsList.Where(x => (x.isOpened && !(x is T))).Act(item => item.Close());
+                windowsList.Where(w => w.isOpened && !(w is T)).Act(w => w.Close());
             }
 
-            windowsList.Where(x => (x is T)).Act(item => item.Open());
+            windowsList.Where(w => (w is T)).Act(w => w.Open());
         }
 
         public virtual void CloseWindow<T>() where T : IUIWindow {
-            windowsList.Where(x => x is T).Act(x => x.Close());
+            windowsList.Where(w => w is T).Act(w => w.Close());
         }
         #endregion
     }

@@ -32,8 +32,8 @@ namespace VladB.Utility {
             //Добавление массивов эвентов разных типов в один список
             allEvents = new List<object>() { events_withoutParams, events_int, events_float, events_string };
             //
-            allEvents.Act((item, i) => {
-                (item as CustomEvent[]).Act((item, k) => item.AddMenuItems(this, k));
+            allEvents.Act(item => {
+                (item as CustomEvent[]).Act((item2, k) => item2.AddMenuItems(this, k));
             });
         }
 

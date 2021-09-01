@@ -27,16 +27,13 @@ namespace VladB.Utility {
                 PlayerPrefs.SetInt(ppName, (value == true) ? 1 : 0);
             }
         }
-
-
     }
 
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(Liso)), CanEditMultipleObjects]
-    public class LisoEditor : Editor {
-        Liso script => (Liso)target;
-
+    public class LisoEditor : Editor {//TODO Отображать ppName
+        Liso script => target as Liso;
 
         public override void OnInspectorGUI() {
             serializedObject.Update();

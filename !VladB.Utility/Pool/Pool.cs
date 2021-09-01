@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,11 +58,9 @@ namespace VladB.Utility {
         }
 
         public virtual void SetActiveAllObjects(bool isActive, bool isMakeAllFree) {
-            for(int i = 0; i < objects.Count; i++) {
-                objects[i].SetActive(isActive);
-                if(isMakeAllFree) {
-                    objects[i].isBusy = false;
-                }
+            objects.Act(obj => obj.SetActive(isActive));
+            if(isMakeAllFree) {
+                objects.Act(obj => obj.isBusy = false);
             }
         }
 
@@ -71,9 +70,10 @@ namespace VladB.Utility {
         }
     }
 
+
     public interface IPoolObject {
         public bool isBusy { get; set; }
-        public void SetActive(bool isActive);
+        public void SetActive(bool isActive);//TODO rename
         public void Init(Pool pool);
     }
 }

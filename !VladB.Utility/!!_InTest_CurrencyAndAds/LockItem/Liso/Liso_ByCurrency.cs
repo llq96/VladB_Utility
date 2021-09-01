@@ -16,7 +16,7 @@ namespace VladB.Utility {
 #if UNITY_EDITOR
     [CustomEditor(typeof(Liso_ByCurrency)), CanEditMultipleObjects]
     public class Liso_ByCurrencyEditor : LisoEditor {
-        Liso_ByCurrency script => (Liso_ByCurrency)target;
+        Liso_ByCurrency script => target as Liso_ByCurrency;
 
 
         public override void OnInspectorGUI() {

@@ -5,7 +5,8 @@ namespace VladB.Utility {
 		[Header("Settings")]
 		[SerializeField] protected bool isDestroyUnUsedObjects;
 		[SerializeField] protected bool isDestroySelf = true;
-		[Space(10)]
+
+		[Header("Debug")]
 		[SerializeField] protected bool isDebugInverse;
 
 		[Header("Only Android")]
@@ -28,15 +29,15 @@ namespace VladB.Utility {
 			isIOS = true;
 #endif
 
-            if(isDebugInverse) {
+			if(isDebugInverse) {
 				Debug.Log("Careful: Inverse Is Enable!");
 				Debug.LogWarning("Inverse Is Enable!!");
-                isAndoid = !isAndoid;
+				isAndoid = !isAndoid;
 				isIOS = !isIOS;
 			}
 
-			onlyAndroid.Act((item, i) => SetActiveObject(item, isAndoid));
-			onlyIOS.Act((item, i) => SetActiveObject(item, isIOS));
+			onlyAndroid.Act(item => SetActiveObject(item, isAndoid));
+			onlyIOS.Act(item => SetActiveObject(item, isIOS));
 
 			if(isDestroySelf) {
 				DestroySelf();

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -24,9 +25,7 @@ namespace VladB.Utility {
             }
         }
 
-        public delegate void CurrencyChangeEvent(int currencyValue, int deltaValue = 0);
-        public event CurrencyChangeEvent OnCurrencyChange;
-
+        public Action<int, int> OnCurrencyChange;
 
         public bool IsCanBuy(int price) => currencyValue >= price;
 
@@ -37,14 +36,9 @@ namespace VladB.Utility {
         public void SetValue(int newCurrencyValue) {
             int deltaValue = newCurrencyValue - currencyValue;
             currencyValue = newCurrencyValue;
-            SaveCurrency();
             OnCurrencyChange?.Invoke(currencyValue, deltaValue);
         }
 
-
-        void SaveCurrency() {
-            PlayerPrefs.SetInt("shopcurrency", currencyValue);
-        }
     }
 
 
@@ -53,7 +47,7 @@ namespace VladB.Utility {
 #if UNITY_EDITOR
     [CustomEditor(typeof(Currency)), CanEditMultipleObjects]
     public class CurrencyEditor : Editor {
-        Currency script => (Currency)target;
+        Currency script => target as Currency;
 
 
         public override void OnInspectorGUI() {

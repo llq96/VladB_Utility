@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using VladB.Utility;
@@ -31,9 +30,7 @@ namespace VladB.GameTemplate {
         protected GameObject levelPrefab;
         protected Level level;
 
-        #region Variables/Events Definitions
-
-        #region PlayerPrefs
+        #region Variables PlayerPrefs
         public virtual int currentLevel {
             get => playerPrefs.currentLevel;
             set => playerPrefs.currentLevel = value;
@@ -48,37 +45,27 @@ namespace VladB.GameTemplate {
         }
         #endregion
 
-        #region Events
-        //public delegate void LevelLoadedEv(Level _level);
-        //public event LevelLoadedEv OnLevelLoadedEv;
-        public Action<Level> OnLevelLoaded;
-        #endregion
-
-        #endregion
-
 
         #region IController Realization
-        public virtual void Init(IMainController iMmainController) {
-            mainController = iMmainController as MainController;
+        public virtual void Init(MainController mainController) {
+            this.mainController = mainController;
             currentLevel = lastPassedLevel + 1;//TODO ? После перезагрузки загружает уровень после последнего пройденного уровня, сделать enum 
         }
 
-        public virtual void GameStateChanged(GameStateEnum state) {
+        public virtual void GameStateChanged(GameStateEnum state, params object[] parameters) {
             switch(state) {
                 case GameStateEnum.Start:
                     if(level) {
-                        level.gameObject.SetActive(false);
+                        level.gameObject.SetActive(false); //Надо ли?
                     }
                     break;
                 case GameStateEnum.Game:
                     if(level) {
-                        level.gameObject.SetActive(true);
+                        level.gameObject.SetActive(true);//Надо ли ?
                     }
                     break;
             }
         }
-
-        public virtual void LevelLoaded(Level level) { }
         #endregion
 
         #region Load/Unload Level
@@ -98,12 +85,9 @@ namespace VladB.GameTemplate {
             }
 
             level = Instantiate(levelPrefab).GetComponent<Level>();
-            level.gameObject.SetActive(true);
-
-            OnLevelLoaded?.Invoke(level);
         }
 
-        protected virtual int CalculatedLoadedLevel() {
+        protected virtual int CalculatedLoadedLevel() {//TODO
             int result = -1;
             if(currentLevel <= countLevels) {
                 result = currentLevel;
@@ -151,10 +135,13 @@ namespace VladB.GameTemplate {
             mainController.SetGameState(GameStateEnum.EndUnloadingLevel);
 
             //Loading
-            mainController.SetGameState(GameStateEnum.StartLoadLevel);
+            mainController.SetGameState(GameStateEnum.BeginLoadLevel);
             LoadLevel();
-            mainController.SetGameState(GameStateEnum.EndLoadLevel);
+            level.gameObject.SetActive(true); //Надо ли?
+            level.Init(mainController);
+            mainController.SetGameState(GameStateEnum.LevelLoaded, level);
 
+            //Next GameStates
             mainController.SetGameState(GameStateEnum.Start);
 
             if(isGameToo) {
@@ -162,18 +149,13 @@ namespace VladB.GameTemplate {
             }
         }
 
-        protected virtual IEnumerator WaitForAllReadyForUnLoad() {
+        protected virtual IEnumerator WaitForAllReadyForUnLoad() {//TODO
             yield return new WaitForEndOfFrame();
         }
 
         public virtual void LevelCompleted() {
             lastPassedLevel = currentLevel;
-
             currentLevel++;
-            //if (currentLevel >= countLevels) {
-            //    loadedLevel = Random.Range(1, countLevels);
-            //}
-
             levelPrefab = null;
         }
         #endregion

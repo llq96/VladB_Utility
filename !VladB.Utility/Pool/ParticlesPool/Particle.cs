@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +20,8 @@ namespace VladB.Utility {
         //public bool isVibrateOnPlay = true;
         //public int vibrateTimeMs = 60;
 
-        public void Start() {
+        void Start() => StartFunc();
+        protected virtual void StartFunc() {
             Init();
         }
 
@@ -145,13 +147,7 @@ namespace VladB.Utility {
         }
 
         protected virtual float GetMaxDuration() {
-            float result = 0f;
-            for(int i = 0; i < particles.Length; i++) {
-                if(particles[i]) {
-                    result = Mathf.Max(result, particles[i].main.duration);
-                }
-            }
-            return result;
+            return particles.Where(p => p != null).Max(p => p.main.duration);//TODO Проверить нужна ли проверка на null
         }
         #endregion
 

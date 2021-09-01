@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using VladB.Utility;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -6,24 +8,27 @@ using UnityEditor;
 
 namespace VladB.GameTemplate {
     public class GameState : MonoBehaviour {
+        [Header("Debug")]
         public bool isDebugLog;
 
         public virtual GameStateEnum state { get; private set; }
         public virtual GameStateEnum GetState() => state;
         public virtual bool isGame => state == GameStateEnum.Game;
 
-        public delegate void GameStateChanged(GameStateEnum state);
-        public event GameStateChanged OnGameStateChanged;
+        public Action<GameStateEnum, object[]> OnGameStateChanged;
 
 
-        public virtual void SetGameState(GameStateEnum state) {
+        public virtual void SetGameState(GameStateEnum state, params object[] parameters) {
             this.state = state;
 
             if(isDebugLog) {
-                Debug.Log("OnGameStateChanged , state = " + state);
+                Debug.Log($"OnGameStateChanged: state = {state}");
+                if(parameters.Length != 0) {
+                    parameters.DebugAll();
+                }
             }
 
-            OnGameStateChanged?.Invoke(state);
+            OnGameStateChanged?.Invoke(state, parameters);
         }
     }
 
@@ -31,14 +36,18 @@ namespace VladB.GameTemplate {
         None,
         BeginUnloadingLevel,
         EndUnloadingLevel,
-        StartLoadLevel,
-        EndLoadLevel,
+
+        BeginLoadLevel,
+        LevelLoaded,
+
         Start,
         Game,
-        GameOver
-        //TODO BeginGameOver
-        //TODO Pausing
-        //TODO UnPausing
+
+        GameOver,
+
+        Pausing,
+        Pause,
+        UnPausing
     }
 
 
@@ -49,12 +58,9 @@ namespace VladB.GameTemplate {
         GameState script => target as GameState;
 
         public override void OnInspectorGUI() {
-            if(serializedObject == null) {
-                return;
-            }
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("isDebugLog"), new GUILayoutOption[0]);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("isDebugLog"));
 
             string text;
             if(!Application.isPlaying) {

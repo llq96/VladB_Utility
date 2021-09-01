@@ -26,9 +26,12 @@ namespace VladB.Utility {
 
         public virtual string GetTimeString(ViewType viewType) {
             switch(viewType) {
-                case ViewType.JustInt: return ((int)currentTime).ToString();
-                case ViewType.JustFloat: return currentTime.ToString();
-                default: return "";
+                case ViewType.JustInt:
+                    return ((int)currentTime).ToString();
+                case ViewType.JustFloat:
+                    return currentTime.ToString();
+                default:
+                    return "";
             }
         }
         #endregion
@@ -74,7 +77,7 @@ namespace VladB.Utility {
         }
 
         public enum ViewType {
-            JustInt , JustFloat //TODO Add Type 00:00
+            JustInt, JustFloat //TODO Add Type 00:00
         }
     }
 }

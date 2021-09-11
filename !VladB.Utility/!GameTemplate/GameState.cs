@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using VladB.Utility;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -6,55 +8,62 @@ using UnityEditor;
 
 namespace VladB.GameTemplate {
     public class GameState : MonoBehaviour {
+        [Header("Debug")]
         public bool isDebugLog;
 
         public virtual GameStateEnum state { get; private set; }
         public virtual GameStateEnum GetState() => state;
         public virtual bool isGame => state == GameStateEnum.Game;
 
-        public delegate void GameStateChanged(GameStateEnum state);
-        public event GameStateChanged OnGameStateChanged;
+        public Action<GameStateEnum, object[]> OnGameStateChanged;
 
 
-        public virtual void SetGameState(GameStateEnum state) {
+        public virtual void SetGameState(GameStateEnum state, params object[] parameters) {
             this.state = state;
 
             if(isDebugLog) {
-                Debug.Log("OnGameStateChanged , state = " + state);
+                Debug.Log($"OnGameStateChanged: state = {state}");
+                if(parameters.Length != 0) {
+                    parameters.DebugAll();
+                }
             }
 
-            OnGameStateChanged?.Invoke(state);
+            OnGameStateChanged?.Invoke(state, parameters);
         }
     }
 
     public enum GameStateEnum {
+        //При добавлении новых элементов обязательно ресетнуть списки в MainController'e
         None,
         BeginUnloadingLevel,
         EndUnloadingLevel,
-        StartLoadLevel,
-        EndLoadLevel,
+
+        BeginLoadLevel,
+        LevelLoaded,
+        LevelInitialized,
+
         Start,
         Game,
-        GameOver
-        //TODO BeginGameOver
-        //TODO Pausing
-        //TODO UnPausing
+
+        BeginGameOver,
+        GameOver,
+
+        Pausing,
+        Pause,
+        UnPausing
     }
 
 
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(GameState))]
-    public class CommentEditor : Editor {
+    public class CommentEditor : Editor { //TODO Добавить список state'ов
         GameState script => target as GameState;
 
         public override void OnInspectorGUI() {
-            if(serializedObject == null) {
-                return;
-            }
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("isDebugLog"), new GUILayoutOption[0]);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("isDebugLog"));
 
             string text;
             if(!Application.isPlaying) {

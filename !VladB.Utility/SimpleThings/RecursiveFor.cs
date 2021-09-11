@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace VladB.Utility {
     public class RecursiveFor {
-        public bool isActive { get; private set;}
+        public bool isActive { get; private set; }
 
         bool isNeedStop;
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace VladB.Utility {
-	public class ResourcesLoader{
+	public class ResourcesLoader {
 		public static T Load<T>(string path) where T : Object {
 #if UNITY_EDITOR
 			T loadedObject = Resources.Load<T>(path);

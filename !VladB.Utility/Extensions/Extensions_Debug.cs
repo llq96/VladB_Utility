@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace VladB.Utility {
@@ -11,18 +10,13 @@ namespace VladB.Utility {
 #endif
         }
 
-        //TODO Use StringBuilder
         public static void DebugAll<T>(this IList<T> list, bool isOneDebug = false, string separator = " ") {
-            if(!isOneDebug) {
+            if(isOneDebug) {
+                DebugLog(list.GetString(separator));
+            } else {
                 for(int i = 0; i < list.Count; i++) {
                     DebugLog(list[i].ToString());
                 }
-            } else {
-                string result = string.Empty;
-                for(int i = 0; i < list.Count; i++) {
-                    result += list[i] + ((i != list.Count - 1) ? separator : "");
-                }
-                DebugLog(result);
             }
         }
 

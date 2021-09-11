@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace VladB.Utility {
-    public class SimplePool : Pool { //TODO Что ещё часто используемого добавить?
+    public class SimplePool : Pool { //Что ещё часто используемого добавить?
         [Header("Settings")]
         public int countSpawnOnStart = 0;
 

@@ -38,7 +38,7 @@ namespace VladB.Utility {
             }
 
             uis = GetComponents<ILockedItemUI>().ToList();
-            uis.Act((item, i) => item.Init(this));
+            uis.Act(item => item.Init(this));
             uis = uis.Where(item => item != null).ToList();
         }
 
@@ -52,7 +52,7 @@ namespace VladB.Utility {
 
         [ContextMenu("ClickOnLockUI")]
         public virtual void ClickOnLockUI() {
-            uis.Act((item, i) => item.ClickOnLockUI());
+            uis.Act(item => item.ClickOnLockUI());
         }
 
         protected virtual void SetActiveLockUI(bool _isActive) {

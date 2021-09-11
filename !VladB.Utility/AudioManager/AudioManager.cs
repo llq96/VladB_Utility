@@ -3,21 +3,18 @@ using UnityEngine;
 
 namespace VladB.Utility {
     public class AudioManager : MonoBehaviour {
-        //TODO instance используется только для того, чтобы иметь папку на сцене в которую кидаются объекты,
-        //возможно стоит подумать как избавиться от инстанса, но сохранить функционал
-        static AudioManager __instance;
-        public static AudioManager instance {
+        static Transform __folder;
+        static Transform folder { //TODO Не проверялось!
             get {
-                if(__instance == null) {
-                    GameObject go = new GameObject("AudioManager");
-                    //go.AddComponent<AudioListener>(); //TODO Делать проверку если ли в открытых сценах Listener ?
-                    __instance = go.AddComponent<AudioManager>();
-                    //DontDestroyOnLoad(go);
+                if(__folder == null) {
+                    GameObject go = GameObject.Find("AudioManagerFolder");
+                    if(go == null) {
+                        go = new GameObject("AudioManagerFolder");
+                    }
+                    __folder = go.transform;
                 }
-                return __instance;
-
+                return __folder;
             }
-            set => __instance = value;
         }
 
         static Dictionary<string, AudioSource> dict = new Dictionary<string, AudioSource>();
@@ -35,7 +32,7 @@ namespace VladB.Utility {
                     return null;
                 }
 
-                tempObj = Instantiate(tempPrefab, instance.transform);
+                tempObj = Instantiate(tempPrefab, folder);
                 tempSource = tempObj.GetComponent<AudioSource>();
                 dict.Add(soundPath, tempSource);
                 return tempSource;

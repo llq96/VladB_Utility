@@ -28,8 +28,6 @@ namespace VladB.Utility {
 #if UNITY_EDITOR
     [CustomEditor(typeof(SetTargetFPSOnAwake))]
     public class SetTargetFPSOnAwakeEditor : Editor {
-        //private SetTargetFPSOnAwake script => target as SetTargetFPSOnAwake;
-
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
             EditorGUILayout.HelpBox("Works only in the editor", MessageType.None);

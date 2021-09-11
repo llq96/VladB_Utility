@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using UnityEngine;
 
 namespace VladB.Utility {
     public static partial class Extensions {
-        static Random random = new Random();
 
         #region Act
 
@@ -55,25 +56,23 @@ namespace VladB.Utility {
         #endregion
 
         #region GetString
-        //TODO Use StringBuilder
         public static string GetString<T>(this IList<T> iList, string separator = " ") {
-            string result = string.Empty;
+            StringBuilder sb = new StringBuilder();
             for(int i = 0; i < iList.Count; i++) {
-                result += iList[i] + ((i != iList.Count - 1) ? separator : "");
+                sb.Append(iList[i] + ((i != iList.Count - 1) ? separator : ""));
             }
-            return result;
+            return sb.ToString();
         }
         #endregion
 
         #region Random
         public static IList<T> GetSortedByRandom<T>(this IList<T> iList) {
-            return iList.OrderBy((item) => random.Next()).ToList();
+            return iList.OrderBy((item) => UnityEngine.Random.Range(0f,1f)).ToList();
         }
 
         public static T GetRandom<T>(this IList<T> iList) {
-            return (iList.Count > 0) ? iList[random.Next()] : default;
+            return (iList.Count > 0) ? iList[UnityEngine.Random.Range(0,iList.Count)] : default;
         }
         #endregion
     }
-
 }

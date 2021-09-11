@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace VladB.Utility {
     public class ScreenShooter : MonoBehaviour {
-        [Header ("Keys")]
+        [Header("Keys")]
         public KeyCode key;
         public KeyCode keyPause;
+
 
         void Start() {
 #if !UNITY_EDITOR
@@ -13,15 +14,14 @@ namespace VladB.Utility {
         }
 
         void Update() {
-            if (Input.GetKeyDown(key)) {
+            if(Input.GetKeyDown(key)) {
                 ScreenCapture.CaptureScreenshot($"!Screens/Screen {Time.unscaledTime}.jpg");
             }
-            
-            if (Input.GetKeyDown(keyPause)) {
+
+            if(Input.GetKeyDown(keyPause)) {
                 Debug.Break();
             }
         }
 
     }
 }
-

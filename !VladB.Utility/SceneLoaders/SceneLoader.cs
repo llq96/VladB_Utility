@@ -1,7 +1,6 @@
 ﻿#define AlwaysLog
 #undef AlwaysLog //Закоментить если нужен дебаг на устройствах
 
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;

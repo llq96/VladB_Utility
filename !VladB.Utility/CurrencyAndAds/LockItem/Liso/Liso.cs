@@ -16,27 +16,24 @@ namespace VladB.Utility {
         public virtual bool available {
             get {
                 if(ppName.IsNullOrEmpty()) {
-                    ppName = Extensions.GetRandomPP();
+                    ppName = Extensions.GetRandomPPKey();
                 }
                 return (!isLockOnStart || (PlayerPrefs.GetInt(ppName, 0) == 1));
             }
             set {
                 if(ppName.IsNullOrEmpty()) {
-                    ppName = Extensions.GetRandomPP();
+                    ppName = Extensions.GetRandomPPKey();
                 }
                 PlayerPrefs.SetInt(ppName, (value == true) ? 1 : 0);
             }
         }
-
-
     }
 
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(Liso)), CanEditMultipleObjects]
-    public class LisoEditor : Editor {
-        Liso script => (Liso)target;
-
+    public class LisoEditor : Editor {//TODO Отображать ppName
+        Liso script => target as Liso;
 
         public override void OnInspectorGUI() {
             serializedObject.Update();

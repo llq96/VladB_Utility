@@ -20,7 +20,7 @@ namespace VladB.Utility {
 #if UNITY_EDITOR
     [CustomEditor(typeof(Liso_ByAds)), CanEditMultipleObjects]
     public class Liso_ByAdsEditor : LisoEditor {
-        Liso_ByAds script => (Liso_ByAds)target;
+        Liso_ByAds script => target as Liso_ByAds;
 
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();

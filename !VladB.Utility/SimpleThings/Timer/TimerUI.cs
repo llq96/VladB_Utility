@@ -32,7 +32,7 @@ namespace VladB.Utility {
         }
 
         protected virtual void SetActiveTimerUI(bool isActive) {
-            if((timerUI)&& (timerUI.activeSelf != isActive)) {
+            if((timerUI) && (timerUI.activeSelf != isActive)) {
                 timerUI.SetActive(isActive);
             }
         }

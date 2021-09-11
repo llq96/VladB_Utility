@@ -13,12 +13,10 @@ namespace VladB.GameTemplate {
             get => PlayerPrefs.GetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_currentLevel, 1);
             set => PlayerPrefs.SetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_currentLevel, value);
         }
-
         public virtual int loadedLevel {
             get => PlayerPrefs.GetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_loadedLevel, 0);
             set => PlayerPrefs.SetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_loadedLevel, value);
         }
-
         public virtual int lastPassedLevel {
             get => PlayerPrefs.GetInt(playerPrefs.pp_prefix_gameName + playerPrefs.pp_lastPassedLevel, 0);
             set {

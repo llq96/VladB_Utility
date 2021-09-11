@@ -1,13 +1,12 @@
 using UnityEngine;
 
 namespace VladB.GameTemplate {
-
     public class Level : MonoBehaviour {
         MainController mainController;
 
 
-        public virtual void Init(IMainController iMainController) {
-            mainController = iMainController as MainController;
+        public virtual void Init(MainController mainController) {
+            this.mainController = mainController;
         }
 
         #region Awake/Start/Update/LateUpdate Functions

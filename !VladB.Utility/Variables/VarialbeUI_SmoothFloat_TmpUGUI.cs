@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 
 namespace VladB.Utility {
-    public class CurrencyUI_uGUI : CurrencyUI_Smooth {
+    public class VarialbeUI_SmoothFloat_TmpUGUI : VariableUI_SmoothNumber<float> {
         [Header("UI:")]
         public TextMeshProUGUI tmp;
 
@@ -12,10 +12,11 @@ namespace VladB.Utility {
             }
             base.OnEnableFunc();
         }
-        protected override void UpdateCurrencyUI() {
-            base.UpdateCurrencyUI();
+        public override void UpdateVariableUI() {
+            base.UpdateVariableUI();
             if(tmp) {
-                tmp.text = $"{prefix}{(int)smoothCurrencyValue}{postfix}";
+                //tmp.text = $"{prefix}{(int)smoothVariableValue}{postfix}";
+                tmp.text = $"{prefix}{smoothVariableValue}{postfix}";
             }
         }
 

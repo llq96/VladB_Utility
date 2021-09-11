@@ -16,13 +16,13 @@ namespace VladB.Utility {
         public virtual bool available {
             get {
                 if(ppName.IsNullOrEmpty()) {
-                    ppName = Extensions.GetRandomPP();
+                    ppName = Extensions.GetRandomPPKey();
                 }
                 return (!isLockOnStart || (PlayerPrefs.GetInt(ppName, 0) == 1));
             }
             set {
                 if(ppName.IsNullOrEmpty()) {
-                    ppName = Extensions.GetRandomPP();
+                    ppName = Extensions.GetRandomPPKey();
                 }
                 PlayerPrefs.SetInt(ppName, (value == true) ? 1 : 0);
             }

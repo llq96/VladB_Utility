@@ -13,7 +13,7 @@ namespace VladB.Utility {
 
         IEnumerator Currency_ChangeValueWithDelta_Cor(Currency currency, float delay, int deltaValue) {
             yield return new WaitForSecondsRealtime(delay);
-            currency.ChangeValueWithDelta(deltaValue);
+            currency.value += deltaValue;
         }
     }
 }

@@ -28,9 +28,9 @@ namespace VladB.Utility {
 
         public override void ClickOnLockUI() {
             if(liso) {
-                if(liso.currency) {
+                if(liso.currency != null) {
                     if(liso.currency.IsCanBuy(liso.price)) {
-                        liso.currency.ChangeValueWithDelta(-liso.price);
+                        liso.currency.value -= liso.price;
                         lockedItem.Unlock();
                     }
                 }

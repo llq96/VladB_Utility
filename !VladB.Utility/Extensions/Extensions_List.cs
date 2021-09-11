@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace VladB.Utility {
     public static partial class Extensions {
-        static Random random = new Random();
 
         #region Act
 
@@ -67,13 +67,12 @@ namespace VladB.Utility {
 
         #region Random
         public static IList<T> GetSortedByRandom<T>(this IList<T> iList) {
-            return iList.OrderBy((item) => random.Next()).ToList();
+            return iList.OrderBy((item) => UnityEngine.Random.Range(0f,1f)).ToList();
         }
 
         public static T GetRandom<T>(this IList<T> iList) {
-            return (iList.Count > 0) ? iList[random.Next()] : default;
+            return (iList.Count > 0) ? iList[UnityEngine.Random.Range(0,iList.Count)] : default;
         }
         #endregion
     }
-
 }

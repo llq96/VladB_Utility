@@ -9,11 +9,11 @@ namespace VladB.GameTemplate {
         [HideInInspector] public GameState gameState;
 
         [Header("Objects With IController")]
-        public List<GameObject> controllersObjects = new List<GameObject>();
+        [HideInInspector] public List<GameObject> controllersObjects = new List<GameObject>();
         List<IController> controllers = new List<IController>();
 
         [Header("Execution Order for OnGameStateChanged")]
-        public List<ListOfControllers> listsByState = new List<ListOfControllers>();
+        [HideInInspector] public List<ListOfControllers> listsByState = new List<ListOfControllers>();
 
 
         public virtual void Init() {

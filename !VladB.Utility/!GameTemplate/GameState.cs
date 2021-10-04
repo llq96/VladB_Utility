@@ -7,7 +7,7 @@ using UnityEditor;
 #endif
 
 namespace VladB.GameTemplate {
-    public class GameState : MonoBehaviour {
+    public partial class GameState : MonoBehaviour {
         [Header("Debug")]
         public bool isDebugLog;
 
@@ -16,7 +16,6 @@ namespace VladB.GameTemplate {
         public virtual bool isGame => state == GameStateEnum.Game;
 
         public Action<GameStateEnum, object[]> OnGameStateChanged;
-
 
         public virtual void SetGameState(GameStateEnum state, params object[] parameters) {
             this.state = state;
@@ -31,29 +30,6 @@ namespace VladB.GameTemplate {
             OnGameStateChanged?.Invoke(state, parameters);
         }
     }
-
-    public enum GameStateEnum {
-        //При добавлении новых элементов обязательно ресетнуть списки в MainController'e
-        None,
-        BeginUnloadingLevel,
-        EndUnloadingLevel,
-
-        BeginLoadLevel,
-        LevelLoaded,
-        LevelInitialized,
-
-        Start,
-        Game,
-
-        BeginGameOver,
-        GameOver,
-
-        Pausing,
-        Pause,
-        UnPausing
-    }
-
-
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(GameState))]

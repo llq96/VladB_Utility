@@ -57,6 +57,8 @@ namespace VladB.Utility {
             }
         }
 
+        public T GetFreeObjectAs<T>() where T : class => GetFreeObject() as T;
+
         public virtual void SetActiveAllObjects(bool isActive, bool isMakeAllFree) {
             objects.Act(obj => obj.SetActivePoolObject(isActive));
             if(isMakeAllFree) {

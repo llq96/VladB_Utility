@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Linq;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace VladB.Utility {
     [RequireComponent(typeof(Timer))]
     public class Particle : MonoBehaviour, IParticle, IPoolObject { //TODO Верунть закоментированное
+        [Header("Settings")]
+        public InitType initType = InitType.Awake;
 
         [Header("Particles")]
         public ParticleSystem[] particles;
@@ -20,24 +21,39 @@ namespace VladB.Utility {
         //public bool isVibrateOnPlay = true;
         //public int vibrateTimeMs = 60;
 
+        #region Awake/Start/Update Methods
+        void Awake() => AwakeFunc();
+        protected virtual void AwakeFunc() {
+            if(initType == InitType.Awake) {
+                Init();
+            }
+        }
+
         void Start() => StartFunc();
         protected virtual void StartFunc() {
-            Init();
+            if(initType == InitType.Start) {
+                Init();
+            }
         }
+
+        void Update() => UpdateFunc();
+        protected virtual void UpdateFunc() {}
+        #endregion
 
         public void Init() {
             timer = GetComponent<Timer>();
 
             timer.OnEndTime -= EndTimer;
             timer.OnEndTime += EndTimer;
+
+            if(particles.Count() == 0) {
+                particles = GetComponentsInChildren<ParticleSystem>(true);
+            }
         }
 
         #region Play
         public virtual void Play() {
             gameObject.SetActive(true);
-            //if (transform.parent != null) {
-            //    transform.parent.gameObject.SetActive(true);
-            //}
 
             Run_Particles();
             //Run_Sound();
@@ -78,9 +94,7 @@ namespace VladB.Utility {
 
         #region Run Particles/Sound/Vibration
         protected virtual void Run_Particles() {
-            for(int i = 0; i < particles.Length; i++) {
-                particles[i].Play();
-            }
+            particles.Act(p => p.TryDo(x => x.Play()));
         }
 
         //void Run_Sound() {
@@ -118,9 +132,7 @@ namespace VladB.Utility {
 
         #region Stop
         public virtual void Stop() {
-            for(int i = 0; i < particles.Length; i++) {
-                particles[i].Clear(true);
-            }
+            particles.Act(p => p.TryDo(x=>x.Clear(true)));
         }
         #endregion
 
@@ -147,16 +159,16 @@ namespace VladB.Utility {
         }
 
         protected virtual float GetMaxDuration() {
-            return particles.Where(p => p != null).Max(p => p.main.duration);//TODO Проверить нужна ли проверка на null
+            return particles.Where(p => p != null).Max(p => p.main.duration);
         }
         #endregion
-
     }
-
 
 
     public interface IParticle {
         public void Play();
         public void Stop();
     }
+
+
 }

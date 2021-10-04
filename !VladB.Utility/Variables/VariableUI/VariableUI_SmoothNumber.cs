@@ -11,17 +11,19 @@ namespace VladB.Utility {
         protected float smoothVariableValue = 0f;
         protected float variableValueChangeSpeed;
 
-        public override void UpdateVariableUI() {
-            if(smoothVariableValue != Convert.ToSingle(variableValue)) {
-                smoothVariableValue = Mathf.MoveTowards(smoothVariableValue, Convert.ToSingle(variableValue), RealTime.deltaTime * variableValueChangeSpeed);
-            }
-        }
 
         protected override void UpdateVariableValue(T newValue, T oldValue, T deltaValue) {
             base.UpdateVariableValue(newValue, deltaValue , deltaValue);
             variableValueChangeSpeed = Mathf.Max(minChangeSpeed, Mathf.Abs(smoothVariableValue - Convert.ToSingle(newValue)));
         }
 
+        public override void UpdateVariableUI() {
+            if(smoothVariableValue != Convert.ToSingle(variableValue)) {
+                smoothVariableValue = Mathf.MoveTowards(smoothVariableValue, Convert.ToSingle(variableValue), RealTime.deltaTime * variableValueChangeSpeed);
+            }
+        }
+
+        #region OnEnable/Update Methods
         protected override void OnEnableFunc() {
             base.OnEnableFunc();
             smoothVariableValue = Convert.ToSingle(variableValue);
@@ -32,7 +34,6 @@ namespace VladB.Utility {
             base.UpdateFunc();
             UpdateVariableUI();
         }
-
-
+        #endregion
     }
 }

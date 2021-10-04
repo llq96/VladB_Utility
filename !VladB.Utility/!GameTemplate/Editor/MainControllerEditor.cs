@@ -30,7 +30,7 @@ public class MainControllerEditor : Editor {
 
 
         serializedObject.ApplyModifiedProperties();
-        //base.OnInspectorGUI();
+        base.OnInspectorGUI();
     }
 
     public void Update_ExecutionOrder_ByState() {

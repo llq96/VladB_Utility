@@ -7,13 +7,10 @@ namespace VladB.Utility {
         public string prefix;
         public string postfix;
 
-        //[Header("Variable")]
         protected Variable<T> variable;
-
         protected T variableValue;
 
-
-
+        #region SetVariable
         public virtual void SetVariable(Variable<T> variable) {
             if(this.variable != null) {
                 this.variable.OnValueChanged_Ev3 -= UpdateVariableValue;
@@ -27,7 +24,9 @@ namespace VladB.Utility {
             }
             UpdateVariableValue();
         }
+        #endregion
 
+        #region UpdateVariableValue
         protected virtual void UpdateVariableValue(T newValue, T oldValue, T deltaValue) {
             this.variableValue = newValue;
         }
@@ -37,9 +36,11 @@ namespace VladB.Utility {
                 UpdateVariableValue(variable.value, default ,default);
             }
         }
+        #endregion
 
-
+        #region UpdateVariableValue UI
         public abstract void UpdateVariableUI();
+        #endregion
 
         #region OnEnable/OnDisable/Update Functions
         void OnEnable() => OnEnableFunc();
@@ -61,6 +62,5 @@ namespace VladB.Utility {
         void Update() => UpdateFunc();
         protected virtual void UpdateFunc() { }
         #endregion
-
     }
 }

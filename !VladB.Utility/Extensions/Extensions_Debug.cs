@@ -12,7 +12,7 @@ namespace VladB.Utility {
 
         public static void DebugAll<T>(this IList<T> list, bool isOneDebug = false, string separator = " ") {
             if(isOneDebug) {
-                DebugLog(list.GetString(separator));
+                DebugLog(string.Join(separator , list));
             } else {
                 for(int i = 0; i < list.Count; i++) {
                     DebugLog(list[i].ToString());

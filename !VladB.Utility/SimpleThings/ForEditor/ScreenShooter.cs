@@ -3,8 +3,8 @@ using UnityEngine;
 namespace VladB.Utility {
     public class ScreenShooter : MonoBehaviour {
         [Header("Keys")]
-        public KeyCode key;
-        public KeyCode keyPause;
+        public KeyCode key = KeyCode.Alpha9;
+        public KeyCode keyPause = KeyCode.Alpha0;
 
 
         void Start() {

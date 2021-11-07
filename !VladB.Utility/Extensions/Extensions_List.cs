@@ -6,9 +6,7 @@ using UnityEngine;
 
 namespace VladB.Utility {
     public static partial class Extensions {
-
         #region Act
-
         /// <summary>
         /// Выполняет указанное действие со всеми элементами списка/массива/любого другого IList
         /// </summary>
@@ -17,7 +15,7 @@ namespace VladB.Utility {
         /// <param name="action">Делегат, принимающий объект типа T и int(счётчик)</param>
         public static void Act<T>(this IList<T> iList, Action<T, int> action) {
             for(int i = 0; i < iList.Count; i++) {
-                action.Invoke(iList[i], i);
+                action?.Invoke(iList[i], i);
             }
         }
 
@@ -29,7 +27,7 @@ namespace VladB.Utility {
         /// <param name="action">Делегат, принимающий объект типа T</param>
         public static void Act<T>(this IList<T> iList, Action<T> action) {
             for(int i = 0; i < iList.Count; i++) {
-                action.Invoke(iList[i]);
+                action?.Invoke(iList[i]);
             }
         }
 
@@ -40,7 +38,11 @@ namespace VladB.Utility {
         /// <param name="list">Любой IEnumerable</param>
         /// <param name="action">Делегат, принимающий объект типа T и int(счётчик)</param>
         public static void Act<T>(this IEnumerable<T> iEnumerable, Action<T, int> action) {
-            iEnumerable.ToList().Act(action);
+            int i = 0;
+            foreach(var item in iEnumerable) {
+                action?.Invoke(item, i);
+                i++;
+            } 
         }
 
         /// <summary>
@@ -50,24 +52,15 @@ namespace VladB.Utility {
         /// <param name="list">Любой IEnumerable</param>
         /// <param name="action">Делегат, принимающий объект типа T</param>
         public static void Act<T>(this IEnumerable<T> iEnumerable, Action<T> action) {
-            iEnumerable.ToList().Act(action);
-        }
-
-        #endregion
-
-        #region GetString
-        public static string GetString<T>(this IList<T> iList, string separator = " ") {
-            StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < iList.Count; i++) {
-                sb.Append(iList[i] + ((i != iList.Count - 1) ? separator : ""));
+            foreach(var item in iEnumerable) {
+                action?.Invoke(item);
             }
-            return sb.ToString();
         }
         #endregion
 
         #region Random
-        public static IList<T> GetSortedByRandom<T>(this IList<T> iList) {
-            return iList.OrderBy((item) => UnityEngine.Random.Range(0f,1f)).ToList();
+        public static IList<T> GetSortedByRandom<T>(this IEnumerable<T> iEnumerable) {
+            return iEnumerable.OrderBy((item) => UnityEngine.Random.Range(0f,1f)).ToList();
         }
 
         public static T GetRandom<T>(this IList<T> iList) {

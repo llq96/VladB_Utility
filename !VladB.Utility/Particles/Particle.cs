@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 namespace VladB.Utility {
     [RequireComponent(typeof(Timer))]
@@ -37,7 +38,7 @@ namespace VladB.Utility {
         }
 
         void Update() => UpdateFunc();
-        protected virtual void UpdateFunc() {}
+        protected virtual void UpdateFunc() { }
         #endregion
 
         public void Init() {
@@ -66,6 +67,10 @@ namespace VladB.Utility {
             isBusy = true;
         }
 
+        public virtual void Play(Vector3 position) {
+            transform.position = position;
+            Play();
+        }
 
 
         //Осторожно, не тестировал
@@ -132,7 +137,7 @@ namespace VladB.Utility {
 
         #region Stop
         public virtual void Stop() {
-            particles.Act(p => p.TryDo(x=>x.Clear(true)));
+            particles.Act(p => p.TryDo(x => x.Clear(true)));
         }
         #endregion
 
@@ -161,7 +166,26 @@ namespace VladB.Utility {
         protected virtual float GetMaxDuration() {
             return particles.Where(p => p != null).Max(p => p.main.duration);
         }
+
+
         #endregion
+        public void SetColor(Color newColor) {
+            particles.Act(p => {
+                //Change MainColor
+                var main = p.main;
+                main.startColor = newColor;
+
+                //Change colors in gradient in ColorOverLifeTime
+                var coloroverLifetime = p.colorOverLifetime;
+                if(coloroverLifetime.enabled) {
+                    var newGradient = new Gradient();
+                    var newColorKeys = new GradientColorKey[] { new GradientColorKey(newColor , 0f),
+                                                                  new GradientColorKey(newColor, 1f) };
+                    newGradient.SetKeys(newColorKeys, coloroverLifetime.color.gradient.alphaKeys);
+                    coloroverLifetime.color = newGradient;
+                }
+            });
+        }
     }
 
 

@@ -6,9 +6,7 @@ using UnityEngine;
 namespace VladB.Utility {
     public class RecursiveFor {
         public bool isActive { get; private set; }
-
         bool isNeedStop;
-
 
         public void For(int countFors, int eachLength, Action<int[]> action) {
             int[] lengths = new int[countFors];

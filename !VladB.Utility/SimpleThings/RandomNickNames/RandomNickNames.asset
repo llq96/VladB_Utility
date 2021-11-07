@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a644e59d133264469ea493bda226bca, type: 3}
+  m_Name: RandomNickNames
+  m_EditorClassIdentifier: 
+  nickNamesLists:
+  - listName: Simple
+    nickNames:
+    - 'Jacob '
+    - 'Mason '
+    - 'Ethan '
+    - Noah
+    - William
+    - Liam
+    - Michael
+    - Jayden
+    - Alexander
+    - Aiden
+    - Daniel
+    - Matthew
+    - Elijah
+    - James
+    - Anthony
+    - Benjamin
+    - Joshua
+    - Andrew
+    - Joseph
+    - David
+    - Jackson
+    - Logan
+    - Christopher
+    - Gabriel
+    - Samuel
+    - Sophia
+    - Emma
+    - Isabella
+    - Olivia
+    - Ava
+    - Emily
+    - Abigail
+    - Mia
+    - Madison
+    - Elizabeth
+    - Chloe
+    - Ella
+    - Avery
+    - Addison
+    - Aubrey
+  - listName: English
+    nickNames:
+    - Hellstaff
+    - Mr_KiLLaURa
+    - Darkshaper
+    - AnnyMars
+    - GAMER
+    - Bloodfire
+    - Skillet
+    - FEISKO
+    - Alien
+    - Kezan
+    - Ironfire
+    - Blackstalker
+    - Jay
+    - Alsantrius
+    - Kerry
+    - Hellblade
+    - Simple
+    - Akir
+    - hammer
+    - Reemiel
+    - iSlate
+    - Rageseeker
+    - Error
+    - Vicus
+    - Azago
+    - OTANO
+    - Arador
+    - WASD
+    - Leyl
+    - Velan
+    - Hi_Jacker
+    - Joker
+    - Dakora
+    - Mr_Mix
+    - Dr.What
+    - JUST DO IT
+    - Rare
+    - 'M LIKE '
+    - Bragis
+    - asAS
+    - ndup
+    - Hanelynai
+    - Shadowbourne
+    - MR.Robot
+    - Zorro
+    - Jack
+  - listName: MMO
+    nickNames:
+    - Onemage
+    - artaud
+    - mongolfier
+    - azino777
+    - bratishka
+    - rukavruke
+    - Nag009
+    - Halkantaft
+    - Hohengame
+    - Dikmak
+    - Malegusik
+    - Firos
+    - Wow
+    - Strike007
+    - Oglaf
+    - pahom
+    - jedi19
+    - alex058
+    - pontos_xz
+    - Adelaida
+    - TopSquire
+    - 360noscope
+    - Ricardo
+    - Metalcore
+  - listName: Spain
+    nickNames:
+    - Adelita
+    - Alta
+    - Benita
+    - Valencia
+    - Blanca
+    - "Ver\xF3nica"
+    - Gertrudis
+    - Gracia
+    - Josefina
+    - Candelaria
+    - "In\xE9s"
+    - Marita
+    - Armando
+    - Gaspar
+    - "Dami\xE1n"
+    - Diego
+    - Carlos
+    - Mateo
+    - Rafael
+    - "Trist\xE1n"
+    - Fabricio
+    - Julio
+    - "Jos\xE9"
+    - Alejandro
+    - "Luc\xEDa"

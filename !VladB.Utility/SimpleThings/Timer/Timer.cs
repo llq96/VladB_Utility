@@ -8,7 +8,6 @@ namespace VladB.Utility {
         public bool isActivateOnStart;
         public bool isReactivateTimer;
         public float maxTimeValue;
-        public ViewType viewType;
 
         public virtual bool isTimerActive { get; private set; }
         public virtual float currentTime { get; private set; }
@@ -25,16 +24,24 @@ namespace VladB.Utility {
         }
 
         public virtual string GetTimeString(ViewType viewType) {
-            switch(viewType) {
-                case ViewType.JustInt:
-                    return ((int)currentTime).ToString();
-                case ViewType.JustFloat:
-                    return currentTime.ToString();
-                default:
-                    return "";
-            }
+            return viewType switch {
+                ViewType.JustInt => ((int)currentTime).ToString(),
+                ViewType.JustFloat => currentTime.ToString(),
+                ViewType.Time => GetReadableTime((int)currentTime),
+                _ => "",
+            };
         }
         #endregion
+
+        //public static string GetReadableTime(int seconds) => $"{seconds / 3600:00}:{seconds / 60 % 60:00}:{seconds % 60:00}";
+        public static string GetReadableTime(int seconds) {
+            if(seconds >= 3600) {
+                return $"{seconds / 3600:00}:{seconds / 60 % 60:00}:{seconds % 60:00}";
+            } else {
+                return $"{seconds / 60 % 60:00}:{seconds % 60:00}";
+            }
+            
+        }
 
         #region Start/Update Functions
         void Start() => StartFunc();
@@ -77,7 +84,7 @@ namespace VladB.Utility {
         }
 
         public enum ViewType {
-            JustInt, JustFloat //TODO Add Type 00:00
+            JustInt, JustFloat , Time //TODO Add Type 00:00
         }
     }
 }

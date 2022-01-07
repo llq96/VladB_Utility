@@ -4,6 +4,7 @@ namespace VladB.Utility {
     public class TimerUI : MonoBehaviour {
         [Header("Timer")]
         public Timer timer;
+        public bool isEnableTimerUI = true;
 
         [Header("UI")]
         [SerializeField] protected GameObject timerUI;
@@ -15,6 +16,10 @@ namespace VladB.Utility {
 
         void Update() => UpdateFunc();
         protected virtual void UpdateFunc() {
+            if(!isEnableTimerUI) {
+                return;
+            }
+
             if(timerUI == null) {
                 return;
             }

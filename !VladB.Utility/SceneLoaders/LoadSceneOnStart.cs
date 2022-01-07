@@ -7,6 +7,10 @@ namespace VladB.Utility {
         [SerializeField] bool isAdditive;
 
         void Start() {
+            LoadScene();
+        }
+
+        public void LoadScene() {
             SceneLoader.LoadScene(levelName, isAdditive);
         }
     }

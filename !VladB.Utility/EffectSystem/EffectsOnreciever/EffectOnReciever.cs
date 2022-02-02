@@ -6,18 +6,16 @@ using VladB.Utility;
 using VladB.GameTemplate;
 
 namespace VladB.EffectsSystem {
-    public class Effect : MonoBehaviour {
+    public class EffectOnReciever : MonoBehaviour {
         [HideInInspector]public EffectData_Base data;
 
-        //public void CopyTo(Effect component) {
-        //    data = new EffectData_Base();
-        //    data.CopyDataTo(component.data);
-        //}
-
-        public void UpdateEffect() {
-
+        public virtual void Init() {
+            data.Init();
         }
 
+        public virtual void DoUpdate() {
+
+        }
 
         #region Debug
         [ContextMenu ("DebugLogData")]

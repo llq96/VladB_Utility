@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using VladB.Utility;
 
@@ -17,9 +19,13 @@ namespace VladB.GameTemplate {
         public delegate void ItemWasGrubbed_Event(GrabbedItem _item);
         public event ItemWasGrubbed_Event OnItemWasGrubbed;
 
+        public List<IItemGrabbingAction> grabbingActions = new List<IItemGrabbingAction>();
 
         #region Init
-        public void Init() => GrabbingController.AddItem(this);
+        public virtual void Init() {
+            GrabbingController.AddItem(this);
+            grabbingActions = GetComponentsInChildren<IItemGrabbingAction>().ToList();
+        }
         #endregion
 
         #region Awake/Start/Update Methods
@@ -43,6 +49,8 @@ namespace VladB.GameTemplate {
 
         public virtual void ItemWasGrubbedByReciever(ItemReciever _reciever) {
             isGrabbed = true;
+            //Debug.Log(grabbingActions.Count);
+            grabbingActions.Act(ga => ga.TryDo(x => x.DoAction()));
             OnItemWasGrubbed?.Invoke(this);
         }
 

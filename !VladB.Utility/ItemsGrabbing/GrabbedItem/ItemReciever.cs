@@ -35,9 +35,13 @@ namespace VladB.GameTemplate {
         #endregion
 
         #region GrabItem
-        public void GrabItem(GrabbedItem item) {
+        public virtual void GrabItem(GrabbedItem item) {
             OnRecieverGrabItem?.Invoke(item);
             item.ItemWasGrubbedByReciever(this);
+        }
+
+        public virtual bool IsCanGrabItem(GrabbedItem item) {
+            return true;
         }
         #endregion
     }

@@ -5,7 +5,7 @@ using VladB.EffectsSystem;
 using VladB.Utility;
 
 namespace VladB.EffectsSystem {
-    public class Effect_ChangeValue_Bool : Effect {
+    public class Effect_ChangeValue_Bool : EffectOnReciever {
         public EffectData_ChangeValue_Bool thisData => data as EffectData_ChangeValue_Bool;
         public virtual bool ApplyEffectToValue(bool prevStepValue) {
             return thisData.boolValue;

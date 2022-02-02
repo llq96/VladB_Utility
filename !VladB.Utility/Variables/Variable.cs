@@ -15,10 +15,11 @@ namespace VladB.Utility {
 
         protected bool isInited;
 
+        public Action OnValueChanged;
         /// <summary>
         /// NewValue
         /// </summary>
-        public Action<T> OnValueChanged;
+        public Action<T> OnValueChanged_Ev1;
         /// <summary>
         /// NewValue, OldValue
         /// </summary>
@@ -54,7 +55,8 @@ namespace VladB.Utility {
         }
 
         protected virtual void SendEvents(T newValue, T oldValue) {
-            OnValueChanged?.Invoke(newValue);
+            OnValueChanged?.Invoke();
+            OnValueChanged_Ev1?.Invoke(newValue);
             OnValueChanged_Ev2?.Invoke(newValue, oldValue);
         }
     }

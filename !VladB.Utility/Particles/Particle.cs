@@ -138,6 +138,8 @@ namespace VladB.Utility {
         #region Stop
         public virtual void Stop() {
             particles.Act(p => p.TryDo(x => x.Clear(true)));
+            timer.TimerSetActive(false, true);
+            isBusy = false;
         }
         #endregion
 

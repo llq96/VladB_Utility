@@ -8,18 +8,18 @@ using VladB.Utility;
 namespace VladB.EffectsSystem {
     public class EffectsReciever : MonoBehaviour {
         [Header ("Effects list")]
-        public List<Effect> effects = new List<Effect>();
+        public List<EffectOnReciever> effects = new List<EffectOnReciever>();
 
         public Action OnAddAnyEffect;
-        public Action<Effect> OnAddThisEffect;
+        public Action<EffectOnReciever> OnAddThisEffect;
         public Action<Type> OnAddAnyEffectWithType;
 
         public Action OnRemoveAnyEffect;
-        public Action<Effect> OnRemoveThisEffect;
+        public Action<EffectOnReciever> OnRemoveThisEffect;
         public Action<Type> OnRemoveAnyEffectWithType;
 
-
-        public void AddEffect<T1,T2>(T2 effectDataSource) where T1 : Effect where T2 : EffectData_Base {
+        #region AddEffect
+        public void AddEffect<T1,T2>(T2 effectDataSource) where T1 : EffectOnReciever where T2 : EffectData_Base {
             if(effectDataSource.isFullUnique) {
                 if(effects.Any(ef => ef is T1)) {
                     Debug.Log("Effects Already Exist On Reciever");
@@ -41,15 +41,22 @@ namespace VladB.EffectsSystem {
                 }
             }
 
-            var newEffect = gameObject.AddComponent<T1>() as Effect;
+            var newEffect = gameObject.AddComponent<T1>() as EffectOnReciever;
             effectDataSource.CopyDataTo(newEffect);
+            InitEffect(newEffect);
             effects.Add(newEffect);
 
             OnAddAnyEffect?.Invoke();
             OnAddThisEffect?.Invoke(newEffect);
             OnAddAnyEffectWithType?.Invoke(newEffect.GetType());
         }
+        #endregion
 
+        public virtual void InitEffect(EffectOnReciever effect) {
+            effect.Init();
+        }
+
+        #region RemoveEffects
         public void RemoveEffects_ByDataGUID(EffectData_Base data) {
             RemoveEffects_ByGUID(data.guid);
         }
@@ -62,7 +69,7 @@ namespace VladB.EffectsSystem {
             effects.Where(ef => ef.data.source == source).ToList().Act(ef => RemoveEffect(ef));
         }
 
-        public void RemoveEffect(Effect effect) {
+        public void RemoveEffect(EffectOnReciever effect) {
             if(effect) {
                 if(effects.Contains(effect)) {
                     effects.Remove(effect);
@@ -79,9 +86,35 @@ namespace VladB.EffectsSystem {
                 Debug.LogError("effect == null");
             }
         }
+        #endregion
 
-        public List<T> GetEffectsWithType<T>() where T : Effect {
+
+        #region IsContains...
+        public bool IsContainsEffect_WithGUID(string guid) {
+            return effects.Any(ef => ef.data.guid == guid);
+        }
+        //TODO...
+
+        public bool IsContainsEffect_WithType<T>() where T : EffectOnReciever {
+            return effects.Any(e => e is T);
+        }
+        #endregion
+
+        public List<T> GetEffectsWithType<T>() where T : EffectOnReciever {
             return effects.Where(e => e is T).OfType<T>().OrderBy(e => e.data.priority).ToList();
+        }
+
+
+
+        void Update() {
+            effects.Where(ef => !ef.data.isInfiniteDuration).ToList().Act(ef => {
+                ef.data.currentDuration -= Time.deltaTime;
+                if(ef.data.currentDuration <= 0f) {
+                    RemoveEffect(ef);
+                }
+            });
+
+            effects.Where(ef => ef.data.isNeedUpdate).Act(ef => ef.DoUpdate());
         }
 
     }

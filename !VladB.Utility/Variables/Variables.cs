@@ -13,6 +13,7 @@ namespace VladB.Utility {
         }
     }
 
+
     [System.Serializable]
     public class VariableFloat : Variable<float> {
         protected override void SendEvents(float newValue, float oldValue) {
@@ -20,6 +21,7 @@ namespace VladB.Utility {
             OnValueChanged_Ev3?.Invoke(newValue, oldValue, newValue - oldValue);
         }
     }
+
 
     [System.Serializable]
     public class VariableString : Variable<string> { }

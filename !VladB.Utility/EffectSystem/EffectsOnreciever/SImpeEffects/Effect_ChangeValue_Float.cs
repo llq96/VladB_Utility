@@ -5,7 +5,7 @@ using VladB.Utility;
 using static VladB.EffectsSystem.Effect_ChangeValue_Float;
 
 namespace VladB.EffectsSystem {
-    public class Effect_ChangeValue_Float : Effect {
+    public class Effect_ChangeValue_Float : EffectOnReciever {
         public EffectData_ChangeValue_Float thisData => data as EffectData_ChangeValue_Float;
         public virtual float ApplyEffectToValue(float prevStepValue) {
             return thisData.changeValueEffectType switch {

@@ -6,9 +6,6 @@ using VladB.Utility;
 namespace VladB.EffectsSystem {
     [System.Serializable]
     public class EffectData_Base {
-        [Header("Source")]
-        public IEffectSource source;
-
         [Header("Priority")]
         [Range(0, 255)] public int priority;
 
@@ -18,9 +15,17 @@ namespace VladB.EffectsSystem {
         public bool isUniqueByGUID = true;// Может висеть несколько однотипных эффектов, но именно этот только 1
         public string guid = "";
 
+        [Header("Time Settings")]
+        public bool isInfiniteDuration = true;
+        public float baseDuration;
+
         [Header("Other")]
         public bool isNeedUpdate;
 
+
+        [Header("Changable:")]
+        public float currentDuration;
+        public IEffectSource source;
 
         public EffectData_Base() {
             if(guid.IsNullOrEmpty()) {
@@ -28,7 +33,13 @@ namespace VladB.EffectsSystem {
             }
         }
 
-        public virtual void CopyDataTo(Effect newEffect) {
+        public virtual void Init() {
+            if(!isInfiniteDuration) {
+                currentDuration = baseDuration;
+            }
+        }
+
+        public virtual void CopyDataTo(EffectOnReciever newEffect) {
             newEffect.data = MemberwiseClone() as EffectData_Base;
             //newData.source = source;
             //newData.priority = priority;

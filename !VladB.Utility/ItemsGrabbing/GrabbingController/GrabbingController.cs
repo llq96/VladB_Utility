@@ -11,6 +11,9 @@ namespace VladB.GameTemplate {
         #region IController Realization
         public virtual void Init(MainController mainController) {
             this.mainController = mainController;
+
+            //recievers = new List<ItemReciever>();
+            //items = new List<GrabbedItem>();
         }
         public void GameStateChanged(GameStateEnum state, params object[] parameters) { }
         #endregion
@@ -34,6 +37,7 @@ namespace VladB.GameTemplate {
         Vector3 tempVec3;
         public void Update() {
             items.RemoveAll(x => ((x == null) || (x.gameObject == null)));
+            recievers.RemoveAll(x => ((x == null) || (x.gameObject == null)));
 
             foreach(ItemReciever reciever in recievers) {
                 foreach(GrabbedItem item in items) {
@@ -45,8 +49,12 @@ namespace VladB.GameTemplate {
                     }
 
                     tempVec3 = item.transform.position - reciever.transform.position;
+                    tempVec3.y = 0;
+                    //TODO Ignore Some Asis
                     if(tempVec3.magnitude < (reciever.distanceToGrab + item.distanceToGrab)) {
-                        reciever.GrabItem(item);
+                        if(reciever.IsCanGrabItem(item)) {
+                            reciever.GrabItem(item);
+                        }
                         //TODO Проверка на взятие и Remove Item в конце метода ?
                     }
                 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace VladB.GameTemplate {
-    public class GrabbingController : MonoBehaviour, IController{
+    public class GrabbingController : MonoBehaviour, IController {
         protected MainController mainController;
 
         public static List<ItemReciever> recievers = new List<ItemReciever>();
@@ -15,8 +15,18 @@ namespace VladB.GameTemplate {
             //recievers = new List<ItemReciever>();
             //items = new List<GrabbedItem>();
         }
-        public void GameStateChanged(GameStateEnum state, params object[] parameters) { }
+        public void GameStateChanged(GameStateEnum state, params object[] parameters) {
+            switch(state) {
+                case GameStateEnum.GameOver:
+                    recievers = new List<ItemReciever>();
+                    items = new List<GrabbedItem>();
+                    break;
+                default:
+                    break;
+            }
+        }
         #endregion
+
 
         #region Adding Reciever Or Item
         public static void AddReciever(ItemReciever _reciever) {

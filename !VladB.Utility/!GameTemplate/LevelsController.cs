@@ -95,7 +95,7 @@ namespace VladB.GameTemplate {
             if(currentLevel <= countLevels) {
                 result = currentLevel;
             } else {
-                result = (currentLevel % countLevels) + 1;
+                result = ((currentLevel - 1) % countLevels) + 1;
             }
             return result;
         }
